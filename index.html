@@ -192,7 +192,7 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20p
 .lock-cancel{font-size:11px;color:var(--text-muted);cursor:pointer;text-decoration:underline;}
 @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
 body.read-only .cal-cell{cursor:default!important;pointer-events:none;}
-body.read-only .franja-toggle-btn{pointer-events:none;}
+/* franja toggle always interactive */
 body.read-only .event-copy-btn{display:none;}
 
 /* ── REGLAS ── */
@@ -669,7 +669,6 @@ function renderFranjas(){
 }
 
 function toggleFranja(id){
-  if(!editMode&&!true){return;} // toggle always works for viewing
   franjaOpen[id]=!franjaOpen[id];
   renderFranjas();
 }
