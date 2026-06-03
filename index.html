@@ -170,6 +170,8 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28p
 .section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 @media(max-width:900px){.deadlines-intro{grid-template-columns:1fr;}.cal-panel{width:100%;border-left:none;border-top:1px solid var(--border);}}
+.event-canales{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.event-canal-tag{font-size:9px;font-weight:600;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);letter-spacing:0.3px;}
 </style>
 </head>
 <body>
@@ -489,6 +491,11 @@ function renderCalendar(){
         const eb = document.createElement('div');
         eb.className='event-block '+slotData.capa;
         const capaLabels={cashback:'🪙 D-1 Cashback',morning:'🔥 Morning Rush',bigame:'🎯 Big Game',recovery:'🚀 Recovery'};
+        const canalIconos={push:'📲',sms:'💬',whatsapp:'📱',email:'📧',slideup:'↑',splash:'🏠',bannerhome:'🖼',bannerv:'📐',inapp:'📍',igstory:'📸',paid:'💰'};
+        const canalNames={push:'Push',sms:'SMS',whatsapp:'WA',email:'Email',slideup:'Slide Up',splash:'Splash',bannerhome:'Banner H',bannerv:'Banner V',inapp:'InApp',igstory:'IG Story',paid:'Paid'};
+        const canalesHTML = (slotData.canales&&slotData.canales.length)
+          ? `<div class="event-canales">${slotData.canales.map(c=>`<span class="event-canal-tag">${canalIconos[c]||''} ${canalNames[c]||c}</span>`).join('')}</div>`
+          : '';
         eb.innerHTML=`
           <div class="event-capa">${capaLabels[slotData.capa]||''}</div>
           <div class="event-info">
@@ -496,6 +503,7 @@ function renderCalendar(){
             ${slotData.producto?`${slotData.producto}`:''}
             ${slotData.marca?` · <em>${slotData.marca}</em>`:''}
           </div>
+          ${canalesHTML}
         `;
         cell.appendChild(eb);
       } else {
