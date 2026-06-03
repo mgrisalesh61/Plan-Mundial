@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strike Plan · Turbo MX · Mundial 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF441F;
+    --orange-light: #FF6B40;
+    --orange-dim: rgba(255,68,31,0.15);
+    --green: #00D084;
+    --green-dim: rgba(0,208,132,0.15);
+    --yellow: #FFB800;
+    --yellow-dim: rgba(255,184,0,0.15);
+    --purple: #9B6DFF;
+    --purple-dim: rgba(155,109,255,0.15);
+    --blue: #4DA6FF;
+    --blue-dim: rgba(77,166,255,0.12);
+    --bg: #0D0F14;
+    --bg2: #13161E;
+    --bg3: #1A1E28;
+    --bg4: #222738;
+    --border: rgba(255,255,255,0.07);
+    --text: #F0F2F8;
+    --text-muted: #6B7494;
+    --text-dim: #3A3F56;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
+  header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+  .header-left { display:flex; align-items:center; gap:16px; }
+  .logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 2px; color: var(--orange); }
+  .logo span { color: var(--text); }
+  .header-badge { background: var(--orange-dim); border: 1px solid var(--orange); color: var(--orange); font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; }
+  .export-btn { background: var(--orange); color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-family: var(--font-body); font-weight: 700; font-size: 13px; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; }
+  .export-btn:hover { background: var(--orange-light); }
+  .tabs-bar { display: flex; gap: 4px; padding: 0 32px; background: var(--bg2); border-bottom: 1px solid var(--border); }
+  .tab { padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.3px; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .main { padding: 32px; max-width: 1400px; margin: 0 auto; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 28px; flex-wrap: wrap; }
+  .filter-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
+  .filter-btn { background: var(--bg3); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--orange-dim); border-color: var(--orange); color: var(--orange); }
+  .partido-block { margin-bottom: 40px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg2); }
+  .partido-header { display: flex; align-items: center; gap: 20px; padding: 20px 28px; background: var(--bg3); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .partido-num { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 2px; }
+  .partido-title { font-family: var(--font-display); font-size: 28px; letter-spacing: 2px; color: var(--text); flex: 1; }
+  .partido-title span { color: var(--orange); }
+  .partido-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .meta-pill { background: var(--bg4); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .meta-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  .kickoff-pill { background: var(--orange-dim); border: 1px solid var(--orange); color: var(--orange); font-weight: 700; }
+  .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .capa-col { border-right: 1px solid var(--border); padding: 0; }
+  .capa-col:last-child { border-right: none; }
+  .capa-header { padding: 16px 20px 14px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .capa-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .capa-prematch .capa-header::before { background: var(--yellow); }
+  .capa-morning .capa-header::before { background: var(--orange); }
+  .capa-bigame .capa-header::before { background: var(--purple); }
+  .capa-recovery .capa-header::before { background: var(--blue); }
+  .capa-icon { font-size: 20px; margin-bottom: 6px; }
+  .capa-name { font-family: var(--font-display); font-size: 16px; letter-spacing: 2px; margin-bottom: 2px; }
+  .capa-prematch .capa-name { color: var(--yellow); }
+  .capa-morning .capa-name { color: var(--orange); }
+  .capa-bigame .capa-name { color: var(--purple); }
+  .capa-recovery .capa-name { color: var(--blue); }
+  .capa-timing { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
+  .capa-mecanica { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; padding: 3px 8px; border-radius: 4px; display: inline-block; }
+  .capa-prematch .capa-mecanica { background: var(--yellow-dim); color: var(--yellow); }
+  .capa-morning .capa-mecanica { background: var(--orange-dim); color: var(--orange); }
+  .capa-bigame .capa-mecanica { background: var(--purple-dim); color: var(--purple); }
+  .capa-recovery .capa-mecanica { background: var(--blue-dim); color: var(--blue); }
+  .capa-body { padding: 16px 20px; }
+  .canal-group { margin-bottom: 14px; }
+  .canal-group-title { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+  .canal-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--bg4); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--text-muted); margin: 2px 2px 2px 0; cursor: pointer; transition: all 0.15s; }
+  .canal-tag:hover { border-color: var(--text-muted); color: var(--text); }
+  .canal-tag.active-canal { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+  .field-block { margin-bottom: 12px; }
+  .field-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; }
+  .field-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-family: var(--font-body); font-size: 12px; color: var(--text); outline: none; transition: border-color 0.15s; resize: none; }
+  .field-input::placeholder { color: var(--text-dim); }
+  .field-input:focus { border-color: var(--orange); }
+  .field-input.copy-field { min-height: 60px; }
+  .deadlines-intro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .deadline-rule-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .rule-step { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; }
+  .rule-title { font-family: var(--font-display); font-size: 18px; letter-spacing: 1px; margin-bottom: 4px; }
+  .rule-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .deadline-partido { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .deadline-partido-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: var(--bg3); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
+  .deadline-partido-name { font-family: var(--font-display); font-size: 20px; letter-spacing: 2px; }
+  .deadline-partido-name span { color: var(--orange); }
+  .deadline-table { width: 100%; border-collapse: collapse; }
+  .deadline-table th { padding: 10px 24px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); background: var(--bg3); border-bottom: 1px solid var(--border); }
+  .deadline-table td { padding: 12px 24px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .deadline-table tr:last-child td { border-bottom: none; }
+  .deadline-table tr:hover td { background: var(--bg3); }
+  .dl-who { font-weight: 700; font-size: 12px; }
+  .dl-who.comercial { color: var(--yellow); }
+  .dl-who.produccion { color: var(--purple); }
+  .dl-who.coordinador { color: var(--orange); }
+  .dl-who.plataforma { color: var(--green); }
+  .dl-date { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+  .dl-date.urgent { color: var(--orange); }
+  .dl-date.done { color: var(--text-muted); text-decoration: line-through; }
+  .dl-date.ok { color: var(--text); }
+  .dl-badge { padding: 3px 10px; border-radius: 100px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+  .dl-badge.vencido { background: rgba(255,68,31,0.2); color: var(--orange); border: 1px solid var(--orange); }
+  .dl-badge.hoy { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
+  .dl-badge.proximo { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .ejecucion-row td { opacity: 0.7; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .divider { height: 1px; background: var(--border); margin: 12px 0; }
+  @media (max-width: 900px) { .timeline-grid { grid-template-columns: 1fr 1fr; } .deadlines-intro { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .timeline-grid { grid-template-columns: 1fr; } .main { padding: 16px; } header { padding: 0 16px; } .tabs-bar { padding: 0 16px; overflow-x: auto; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="logo">RAPPI <span>TURBO</span></div>
+    <div class="header-badge">⚽ MUNDIAL 2026</div>
+  </div>
+  <button class="export-btn" onclick="exportHTML()">⬇ Exportar HTML</button>
+</header>
+<div class="tabs-bar">
+  <div class="tab active" onclick="switchTab('minuto',this)">⏱ Minuto a Minuto</div>
+  <div class="tab" onclick="switchTab('reglas',this)">📋 Reglas de Juego</div>
+</div>
+<div class="main">
+<div id="tab-minuto" class="tab-content active">
+  <div class="filter-bar">
+    <span class="filter-label">Partido</span>
+    <button class="filter-btn active" onclick="filterPartido('all',this)">Todos</button>
+    <button class="filter-btn" onclick="filterPartido('p1',this)">🇲🇽 vs Sudáfrica</button>
+    <button class="filter-btn" onclick="filterPartido('p2',this)">🇲🇽 vs Corea del Sur</button>
+    <button class="filter-btn" onclick="filterPartido('p3',this)">🇲🇽 vs Chequia</button>
+    <span class="filter-label" style="margin-left:12px;">Capa</span>
+    <button class="filter-btn" onclick="filterCapa('cashback',this)">🪙 D-1 Cashback</button>
+    <button class="filter-btn" onclick="filterCapa('morning',this)">🔥 Morning Rush</button>
+    <button class="filter-btn" onclick="filterCapa('bigame',this)">🎯 Big Game</button>
+    <button class="filter-btn" onclick="filterCapa('recovery',this)">🚀 Recovery</button>
+  </div>
