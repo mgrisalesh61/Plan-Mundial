@@ -172,6 +172,22 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28p
 @media(max-width:900px){.deadlines-intro{grid-template-columns:1fr;}.cal-panel{width:100%;border-left:none;border-top:1px solid var(--border);}}
 .event-canales{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
 .event-canal-tag{font-size:9px;font-weight:600;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);letter-spacing:0.3px;}
+
+/* COPY MODE */
+.copy-banner{display:none;position:sticky;top:60px;z-index:150;background:#0D1F0D;border:1px solid var(--green);border-radius:10px;padding:12px 20px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.copy-banner.active{display:flex;}
+.copy-banner-left{display:flex;align-items:center;gap:10px;}
+.copy-banner-icon{font-size:18px;}
+.copy-banner-text{font-size:12px;color:var(--green);font-weight:600;line-height:1.5;}
+.copy-banner-text span{color:var(--text-muted);font-weight:400;}
+.copy-cancel-btn{background:var(--bg4);border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.copy-cancel-btn:hover{border-color:var(--orange);color:var(--orange);}
+.cal-cell.copy-target{outline:2px dashed var(--green);outline-offset:-2px;background:rgba(0,208,132,0.04);}
+.cal-cell.copy-target:hover{background:rgba(0,208,132,0.12) !important;}
+.cal-cell.copy-source{outline:2px solid var(--green);outline-offset:-2px;}
+.event-copy-btn{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-size:9px;padding:2px 7px;border-radius:4px;cursor:pointer;opacity:0;transition:opacity 0.15s;font-family:var(--font-body);font-weight:700;z-index:10;letter-spacing:0.5px;}
+.cal-cell:hover .event-copy-btn{opacity:1;}
+.event-copy-btn:hover{background:var(--green-dim);border-color:var(--green);color:var(--green);}
 </style>
 </head>
 <body>
@@ -212,6 +228,17 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28p
     </button>
   </div>
 
+
+  <div class="copy-banner" id="copy-banner">
+    <div class="copy-banner-left">
+      <div class="copy-banner-icon">📋</div>
+      <div class="copy-banner-text">
+        Modo copia activo &mdash; <strong id="copy-banner-label"></strong><br>
+        <span>Haz clic en cualquier celda para pegar. Puedes pegar en múltiples celdas.</span>
+      </div>
+    </div>
+    <button class="copy-cancel-btn" onclick="cancelCopy()">✕ Cancelar copia</button>
+  </div>
   <div class="cal-wrapper">
     <div class="cal-main">
       <div class="cal-header" id="cal-header"></div>
@@ -425,8 +452,10 @@ PARTIDOS.forEach((_,pi)=>{
 });
 
 let currentPartido = 0;
-let currentSlot = null; // {col, hour}
+let currentSlot = null;
 let currentCapa = null;
+let copyBuffer = null;
+let copyMode = false;
 
 function selectPartido(idx, btn){
   currentPartido = idx;
@@ -475,6 +504,13 @@ function renderCalendar(){
       const cell = document.createElement('div');
       cell.className = 'cal-cell';
       cell.onclick = ()=>openPanel(col,h);
+      if(copyMode){
+        if(copyBuffer && copyBuffer.sourceCol===col && copyBuffer.sourceHour===h){
+          cell.classList.add('copy-source');
+        } else {
+          cell.classList.add('copy-target');
+        }
+      }
 
       const slotData = data[currentPartido][col][h];
       // kickoff marker
@@ -505,6 +541,12 @@ function renderCalendar(){
           </div>
           ${canalesHTML}
         `;
+        const cpBtn = document.createElement('button');
+        cpBtn.className = 'event-copy-btn';
+        cpBtn.textContent = '📋 Copiar';
+        cpBtn.onclick = (e) => copySlot(col, h, e);
+        eb.style.position = 'relative';
+        eb.appendChild(cpBtn);
         cell.appendChild(eb);
       } else {
         const add = document.createElement('div');
@@ -519,6 +561,10 @@ function renderCalendar(){
 }
 
 function openPanel(col, hour){
+  if(copyMode && copyBuffer){
+    pasteSlot(col, hour);
+    return;
+  }
   currentSlot = {col, hour};
   const p = PARTIDOS[currentPartido];
   const dayLabels = {d1:p.d1.day, dm:p.dm.day+' ⚽', d2:p.d2.day};
@@ -603,6 +649,32 @@ function switchTab(name,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   el.classList.add('active');
+}
+
+function copySlot(col, hour, e){
+  e.stopPropagation();
+  const slotData = data[currentPartido][col][hour];
+  if(!slotData) return;
+  copyBuffer = {data: JSON.parse(JSON.stringify(slotData)), sourceCol: col, sourceHour: hour};
+  copyMode = true;
+  const capaLabels={cashback:'D-1 Cashback',morning:'Morning Rush',bigame:'Big Game',recovery:'Recovery'};
+  const parts = [capaLabels[slotData.capa]||'', slotData.descuento||'', slotData.producto||'', slotData.marca||''].filter(Boolean);
+  document.getElementById('copy-banner-label').textContent = parts.join(' · ');
+  document.getElementById('copy-banner').classList.add('active');
+  renderCalendar();
+}
+
+function pasteSlot(col, hour){
+  if(!copyBuffer) return;
+  data[currentPartido][col][hour] = JSON.parse(JSON.stringify(copyBuffer.data));
+  renderCalendar();
+}
+
+function cancelCopy(){
+  copyMode = false;
+  copyBuffer = null;
+  document.getElementById('copy-banner').classList.remove('active');
+  renderCalendar();
 }
 
 function exportHTML(){
