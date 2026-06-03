@@ -6,226 +6,260 @@
 <title>Strike Plan · Turbo MX · Mundial 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --orange:#FF441F; --orange-light:#FF6B40; --orange-dim:rgba(255,68,31,0.15);
-  --green:#00D084; --green-dim:rgba(0,208,132,0.15);
-  --yellow:#FFB800; --yellow-dim:rgba(255,184,0,0.18);
-  --purple:#9B6DFF; --purple-dim:rgba(155,109,255,0.18);
-  --blue:#4DA6FF; --blue-dim:rgba(77,166,255,0.15);
-  --bg:#0D0F14; --bg2:#13161E; --bg3:#1A1E28; --bg4:#222738;
-  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
-  --text:#F0F2F8; --text-muted:#6B7494; --text-dim:#3A3F56;
-  --font-display:'Bebas Neue',sans-serif;
-  --font-body:'DM Sans',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
+:root{
+  --orange:#FF441F;--orange-light:#FF6B40;--orange-dim:rgba(255,68,31,0.15);
+  --green:#00D084;--green-dim:rgba(0,208,132,0.15);
+  --yellow:#FFB800;--yellow-dim:rgba(255,184,0,0.18);
+  --purple:#9B6DFF;--purple-dim:rgba(155,109,255,0.18);
+  --blue:#4DA6FF;--blue-dim:rgba(77,166,255,0.15);
+  --bg:#0D0F14;--bg2:#13161E;--bg3:#1A1E28;--bg4:#222738;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#F0F2F8;--text-muted:#6B7494;--text-dim:#3A3F56;
+  --fd:'Bebas Neue',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace;
+  --col-time:56px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
+html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-/* HEADER */
-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:200;}
-.logo{font-family:var(--font-display);font-size:20px;letter-spacing:2px;color:var(--orange);}
+/* ── HEADER ── */
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:300;gap:10px;}
+.logo{font-family:var(--fd);font-size:19px;letter-spacing:2px;color:var(--orange);white-space:nowrap;}
 .logo span{color:var(--text);}
-.header-left{display:flex;align-items:center;gap:14px;}
-.header-badge{background:var(--orange-dim);border:1px solid var(--orange);color:var(--orange);font-size:10px;font-weight:700;letter-spacing:2px;padding:3px 10px;border-radius:100px;}
-.export-btn{background:var(--orange);color:#fff;border:none;padding:7px 18px;border-radius:7px;font-family:var(--font-body);font-weight:700;font-size:12px;cursor:pointer;transition:background 0.2s;}
+.header-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.header-badge{background:var(--orange-dim);border:1px solid var(--orange);color:var(--orange);font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 9px;border-radius:100px;white-space:nowrap;}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.mode-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:1px;white-space:nowrap;}
+.mode-badge.locked{background:rgba(107,116,148,0.15);border:1px solid var(--text-muted);color:var(--text-muted);}
+.mode-badge.editing{background:var(--green-dim);border:1px solid var(--green);color:var(--green);}
+.export-btn{background:var(--orange);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-family:var(--fb);font-weight:700;font-size:11px;cursor:pointer;white-space:nowrap;}
 .export-btn:hover{background:var(--orange-light);}
 
-/* TABS */
-.tabs-bar{display:flex;gap:4px;padding:0 28px;background:var(--bg2);border-bottom:1px solid var(--border);}
-.tab{padding:13px 22px;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+/* ── TABS ── */
+.tabs-bar{display:flex;padding:0 20px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;}
+.tab{padding:12px 20px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
 .tab:hover{color:var(--text);}
 .tab.active{color:var(--orange);border-bottom-color:var(--orange);}
 
-/* MAIN */
-.main{padding:24px 28px;max-width:1500px;margin:0 auto;}
+/* ── MAIN ── */
+.main{padding:20px;max-width:1600px;margin:0 auto;}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
 
-/* PARTIDO SELECTOR */
-.partido-selector{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
-.partido-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text-muted);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:left;}
+/* ── PARTIDO SELECTOR ── */
+.partido-selector{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.partido-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text-muted);padding:10px 16px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;text-align:left;transition:all 0.2s;flex:1;min-width:160px;}
 .partido-btn:hover{border-color:var(--border2);color:var(--text);}
 .partido-btn.active{background:var(--orange-dim);border-color:var(--orange);color:var(--orange);}
-.partido-btn .pb-date{font-family:var(--font-mono);font-size:10px;display:block;margin-bottom:3px;opacity:0.7;}
-.partido-btn .pb-name{font-family:var(--font-display);font-size:15px;letter-spacing:1px;display:block;}
-.partido-btn .pb-stadium{font-size:10px;opacity:0.6;display:block;margin-top:2px;}
+.pb-date{font-family:var(--fm);font-size:9px;display:block;margin-bottom:2px;opacity:0.7;}
+.pb-name{font-family:var(--fd);font-size:14px;letter-spacing:1px;display:block;}
+.pb-stadium{font-size:10px;opacity:0.6;display:block;margin-top:1px;}
 
-/* CALENDAR LAYOUT */
-.cal-wrapper{display:flex;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);}
-.cal-main{flex:1;overflow:hidden;}
-.cal-panel{width:320px;border-left:1px solid var(--border);background:var(--bg3);display:none;flex-direction:column;}
-.cal-panel.open{display:flex;}
+/* ── VIEW TOGGLE ── */
+.view-toggle{display:flex;gap:6px;margin-bottom:14px;align-items:center;flex-wrap:wrap;}
+.view-toggle-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;}
+.vt-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:0.5px;}
+.vt-btn.active{background:var(--orange-dim);border-color:var(--orange);color:var(--orange);}
 
-/* CALENDAR HEADER ROW */
-.cal-header{display:grid;grid-template-columns:64px repeat(7,1fr);border-bottom:1px solid var(--border);background:var(--bg3);}
-.cal-header-time{padding:14px 10px;font-family:var(--font-mono);font-size:9px;color:var(--text-dim);letter-spacing:1px;}
-.cal-header-day{padding:14px 16px;border-left:1px solid var(--border);}
-.cal-header-day .day-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
-.cal-header-day .day-date{font-family:var(--font-display);font-size:17px;letter-spacing:1px;color:var(--text);}
-.cal-header-day .day-name{font-size:11px;color:var(--text-muted);margin-top:1px;}
-.cal-header-day.match-day .day-date{color:var(--orange);}
-.cal-header-day.match-day .day-label{color:var(--orange);}
+/* ── COPY BANNER ── */
+.copy-banner{display:none;background:#0D1F0D;border:1px solid var(--green);border-radius:10px;padding:10px 16px;margin-bottom:14px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.copy-banner.active{display:flex;}
+.copy-banner-text{font-size:11px;color:var(--green);font-weight:600;line-height:1.5;}
+.copy-banner-text span{color:var(--text-muted);font-weight:400;}
+.copy-cancel-btn{background:var(--bg4);border:1px solid var(--border);color:var(--text-muted);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.copy-cancel-btn:hover{border-color:var(--orange);color:var(--orange);}
 
-/* CALENDAR GRID */
-.cal-grid{overflow-y:auto;max-height:calc(100vh - 220px);}
-.cal-row{display:grid;grid-template-columns:64px repeat(7,1fr);border-bottom:1px solid var(--border);min-height:56px;}
+/* ── CALENDAR WRAPPER ── */
+.cal-wrapper{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);}
+.cal-main{flex:1;overflow:hidden;min-width:0;}
+.cal-scroll{overflow-x:auto;}
+
+/* ── CAL HEADER ── */
+.cal-header{display:grid;border-bottom:1px solid var(--border);background:var(--bg3);min-width:600px;}
+.cal-header-time{padding:10px 6px;font-family:var(--fm);font-size:8px;color:var(--text-dim);letter-spacing:1px;}
+.cal-header-day{padding:10px 10px;border-left:1px solid var(--border);}
+.chd-label{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px;}
+.chd-date{font-family:var(--fd);font-size:15px;letter-spacing:1px;color:var(--text);}
+.chd-name{font-size:10px;color:var(--text-muted);margin-top:1px;}
+.cal-header-day.match-day .chd-date{color:var(--orange);}
+.cal-header-day.match-day .chd-label{color:var(--orange);}
+
+/* ── HORA A HORA GRID ── */
+.cal-grid{overflow-y:auto;max-height:calc(100vh - 280px);min-width:600px;}
+.cal-row{display:grid;border-bottom:1px solid var(--border);min-height:52px;}
 .cal-row:last-child{border-bottom:none;}
-.cal-time{padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:1px;display:flex;align-items:flex-start;padding-top:10px;border-right:1px solid var(--border);}
-.cal-cell{border-left:1px solid var(--border);padding:4px;position:relative;cursor:pointer;transition:background 0.15s;min-height:56px;}
+.cal-time{padding:6px;font-family:var(--fm);font-size:9px;color:var(--text-dim);letter-spacing:1px;display:flex;align-items:flex-start;padding-top:8px;border-right:1px solid var(--border);}
+.cal-cell{border-left:1px solid var(--border);padding:3px;position:relative;cursor:pointer;min-height:52px;transition:background 0.15s;}
 .cal-cell:hover{background:rgba(255,255,255,0.02);}
-.cal-cell.has-event{cursor:pointer;}
+.cal-cell.copy-target{outline:2px dashed var(--green);outline-offset:-2px;background:rgba(0,208,132,0.03);}
+.cal-cell.copy-target:hover{background:rgba(0,208,132,0.09)!important;}
+.cal-cell.copy-source{outline:2px solid var(--green);outline-offset:-2px;}
 
-/* EVENT BLOCKS */
-.event-block{border-radius:6px;padding:6px 8px;height:100%;min-height:48px;position:relative;border:1px solid transparent;}
+/* ── EVENT BLOCKS ── */
+.event-block{border-radius:5px;padding:5px 7px;height:100%;min-height:44px;position:relative;border:1px solid transparent;}
 .event-block.cashback{background:var(--yellow-dim);border-color:rgba(255,184,0,0.3);}
 .event-block.morning{background:var(--orange-dim);border-color:rgba(255,68,31,0.3);}
 .event-block.bigame{background:var(--purple-dim);border-color:rgba(155,109,255,0.3);}
 .event-block.recovery{background:var(--blue-dim);border-color:rgba(77,166,255,0.3);}
-.event-block.kickoff{background:rgba(255,68,31,0.25);border-color:var(--orange);border-width:2px;}
-
-.event-capa{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.event-capa{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
 .event-block.cashback .event-capa{color:var(--yellow);}
 .event-block.morning .event-capa{color:var(--orange);}
 .event-block.bigame .event-capa{color:var(--purple);}
 .event-block.recovery .event-capa{color:var(--blue);}
-.event-block.kickoff .event-capa{color:var(--orange);}
-
-.event-info{font-size:10px;color:var(--text-muted);line-height:1.4;}
+.event-info{font-size:9px;color:var(--text-muted);line-height:1.4;}
 .event-info strong{color:var(--text);font-weight:600;}
-.event-add{display:flex;align-items:center;justify-content:center;height:100%;min-height:48px;color:var(--text-dim);font-size:18px;opacity:0;}
+.event-canales{display:flex;flex-wrap:wrap;gap:2px;margin-top:3px;}
+.event-canal-tag{font-size:8px;font-weight:600;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.45);}
+.event-add{display:flex;align-items:center;justify-content:center;height:100%;min-height:44px;color:var(--text-dim);font-size:16px;opacity:0;}
 .cal-cell:hover .event-add{opacity:1;}
+.event-copy-btn{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-size:8px;padding:2px 5px;border-radius:3px;cursor:pointer;opacity:0;font-family:var(--fb);font-weight:700;z-index:10;}
+.cal-cell:hover .event-copy-btn{opacity:1;}
+.event-copy-btn:hover{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.kickoff-marker{background:var(--orange);color:#fff;font-family:var(--fd);font-size:11px;letter-spacing:1px;padding:3px 7px;border-radius:4px;display:inline-flex;align-items:center;gap:4px;}
 
-/* KICKOFF MARKER */
-.kickoff-marker{background:var(--orange);color:#fff;font-family:var(--font-display);font-size:12px;letter-spacing:1px;padding:4px 8px;border-radius:5px;display:flex;align-items:center;gap:5px;}
+/* ── FRANJAS VIEW ── */
+.franjas-grid{min-width:600px;}
+.franja-row{border-bottom:1px solid var(--border);}
+.franja-row:last-child{border-bottom:none;}
+.franja-header-row{display:grid;background:var(--bg3);}
+.franja-time-cell{padding:10px 6px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;gap:3px;}
+.franja-label{font-family:var(--fm);font-size:9px;color:var(--orange);font-weight:700;letter-spacing:1px;}
+.franja-toggle-btn{background:none;border:1px solid var(--border);color:var(--text-muted);width:22px;height:22px;border-radius:5px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.franja-toggle-btn:hover{border-color:var(--orange);color:var(--orange);}
+.franja-day-cell{border-left:1px solid var(--border);padding:8px 10px;cursor:default;}
+.franja-summary{display:flex;flex-direction:column;gap:4px;}
+.franja-empty{font-size:10px;color:var(--text-dim);display:flex;align-items:center;height:100%;min-height:40px;}
+.franja-descuento{font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.franja-canales{display:flex;flex-wrap:wrap;gap:3px;}
+.franja-canal-chip{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);}
+.franja-capa-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:3px;}
+.franja-capa-dot.cashback{background:var(--yellow);}
+.franja-capa-dot.morning{background:var(--orange);}
+.franja-capa-dot.bigame{background:var(--purple);}
+.franja-capa-dot.recovery{background:var(--blue);}
 
-/* PANEL */
-.panel-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.panel-title{font-family:var(--font-display);font-size:16px;letter-spacing:1px;}
-.panel-close{background:var(--bg4);border:none;color:var(--text-muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
-.panel-close:hover{color:var(--text);}
-.panel-body{padding:16px 20px;overflow-y:auto;flex:1;}
-.panel-meta{background:var(--bg4);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted);line-height:1.6;}
+/* franja expanded rows */
+.franja-detail-rows{display:none;}
+.franja-detail-rows.open{display:block;}
+.franja-detail-row{display:grid;border-top:1px solid var(--border);}
+.franja-detail-time{padding:5px 6px;border-right:1px solid var(--border);font-family:var(--fm);font-size:8px;color:var(--text-dim);display:flex;align-items:flex-start;padding-top:7px;}
+
+/* ── SIDE PANEL ── */
+.cal-panel{width:300px;border-left:1px solid var(--border);background:var(--bg3);display:none;flex-direction:column;max-height:calc(100vh - 120px);overflow:hidden;}
+.cal-panel.open{display:flex;}
+.panel-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.panel-title{font-family:var(--fd);font-size:14px;letter-spacing:1px;}
+.panel-close{background:var(--bg4);border:none;color:var(--text-muted);width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.panel-body{padding:14px 16px;overflow-y:auto;flex:1;}
+.panel-meta{background:var(--bg4);border-radius:7px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:var(--text-muted);line-height:1.6;}
 .panel-meta strong{color:var(--text);}
-
-.panel-capa-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
-.capa-opt{padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all 0.15s;letter-spacing:0.5px;}
+.capa-selector{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.capa-opt{padding:4px 9px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid transparent;letter-spacing:0.5px;}
 .capa-opt.cashback{background:var(--yellow-dim);color:var(--yellow);border-color:rgba(255,184,0,0.3);}
 .capa-opt.morning{background:var(--orange-dim);color:var(--orange);border-color:rgba(255,68,31,0.3);}
 .capa-opt.bigame{background:var(--purple-dim);color:var(--purple);border-color:rgba(155,109,255,0.3);}
 .capa-opt.recovery{background:var(--blue-dim);color:var(--blue);border-color:rgba(77,166,255,0.3);}
 .capa-opt.selected{outline:2px solid currentColor;outline-offset:1px;}
-
-.field-block{margin-bottom:13px;}
-.field-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
-.field-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:var(--font-body);font-size:12px;color:var(--text);outline:none;transition:border-color 0.15s;resize:none;}
+.field-block{margin-bottom:11px;}
+.field-label{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px;}
+.field-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:7px 9px;font-family:var(--fb);font-size:11px;color:var(--text);outline:none;resize:none;}
 .field-input::placeholder{color:var(--text-dim);}
 .field-input:focus{border-color:var(--orange);}
-.field-textarea{min-height:64px;}
-
-.canal-group{margin-bottom:10px;}
-.canal-group-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
-.canal-tags{display:flex;flex-wrap:wrap;gap:4px;}
-.canal-tag{display:inline-flex;align-items:center;background:var(--bg4);border:1px solid var(--border);padding:3px 8px;border-radius:4px;font-size:10px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.15s;}
+.field-ta{min-height:56px;}
+.cg-label{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px;margin-top:8px;}
+.canal-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;}
+.canal-tag{display:inline-flex;align-items:center;background:var(--bg4);border:1px solid var(--border);padding:3px 7px;border-radius:3px;font-size:9px;font-weight:600;color:var(--text-muted);cursor:pointer;}
 .canal-tag:hover{border-color:var(--border2);color:var(--text);}
 .canal-tag.on{border-color:var(--green);color:var(--green);background:var(--green-dim);}
-
-.panel-actions{display:flex;gap:8px;margin-top:16px;}
-.btn-save{flex:1;background:var(--orange);color:#fff;border:none;padding:10px;border-radius:7px;font-family:var(--font-body);font-weight:700;font-size:13px;cursor:pointer;transition:background 0.2s;}
+.panel-actions{display:flex;gap:6px;margin-top:14px;}
+.btn-save{flex:1;background:var(--orange);color:#fff;border:none;padding:9px;border-radius:6px;font-family:var(--fb);font-weight:700;font-size:12px;cursor:pointer;}
 .btn-save:hover{background:var(--orange-light);}
-.btn-clear{background:var(--bg4);color:var(--text-muted);border:1px solid var(--border);padding:10px 14px;border-radius:7px;font-family:var(--font-body);font-weight:600;font-size:12px;cursor:pointer;}
+.btn-clear{background:var(--bg4);color:var(--text-muted);border:1px solid var(--border);padding:9px 12px;border-radius:6px;font-family:var(--fb);font-weight:600;font-size:11px;cursor:pointer;}
 .btn-clear:hover{color:var(--orange);border-color:var(--orange);}
 
-/* REGLAS */
-.deadlines-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
-.deadline-rule-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;}
-.rule-step{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-muted);margin-bottom:6px;}
-.rule-title{font-family:var(--font-display);font-size:17px;letter-spacing:1px;margin-bottom:4px;}
-.rule-desc{font-size:12px;color:var(--text-muted);line-height:1.5;}
-.deadline-partido{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:18px;}
-.deadline-partido-header{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;}
-.deadline-partido-name{font-family:var(--font-display);font-size:19px;letter-spacing:2px;}
-.deadline-partido-name span{color:var(--orange);}
-.deadline-table{width:100%;border-collapse:collapse;}
-.deadline-table th{padding:9px 22px;text-align:left;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);background:var(--bg3);border-bottom:1px solid var(--border);}
-.deadline-table td{padding:11px 22px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;}
-.deadline-table tr:last-child td{border-bottom:none;}
-.deadline-table tr:hover td{background:var(--bg3);}
-.dl-who{font-weight:700;font-size:11px;}
-.dl-who.comercial{color:var(--yellow);}
-.dl-who.produccion{color:var(--purple);}
-.dl-who.coordinador{color:var(--orange);}
-.dl-who.plataforma{color:var(--green);}
-.dl-date{font-family:var(--font-mono);font-size:11px;font-weight:600;}
+/* ── LOCK MODAL ── */
+.lock-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.lock-overlay.active{display:flex;}
+.lock-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:28px 24px;width:320px;text-align:center;}
+.lock-icon{font-size:32px;margin-bottom:10px;}
+.lock-title{font-family:var(--fd);font-size:20px;letter-spacing:2px;margin-bottom:5px;}
+.lock-desc{font-size:11px;color:var(--text-muted);margin-bottom:16px;line-height:1.5;}
+.lock-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 12px;font-family:var(--fm);font-size:13px;color:var(--text);outline:none;text-align:center;letter-spacing:3px;margin-bottom:6px;}
+.lock-input:focus{border-color:var(--orange);}
+.lock-input.err{border-color:var(--orange);animation:shake .3s;}
+.lock-err{font-size:10px;color:var(--orange);margin-bottom:10px;min-height:14px;}
+.lock-btn{width:100%;background:var(--orange);color:#fff;border:none;padding:10px;border-radius:7px;font-family:var(--fb);font-weight:700;font-size:12px;cursor:pointer;margin-bottom:7px;}
+.lock-btn:hover{background:var(--orange-light);}
+.lock-cancel{font-size:11px;color:var(--text-muted);cursor:pointer;text-decoration:underline;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+body.read-only .cal-cell{cursor:default!important;pointer-events:none;}
+body.read-only .franja-toggle-btn{pointer-events:none;}
+body.read-only .event-copy-btn{display:none;}
+
+/* ── REGLAS ── */
+.deadlines-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.dl-rule-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.rule-step{font-family:var(--fm);font-size:9px;letter-spacing:2px;color:var(--text-muted);margin-bottom:6px;}
+.rule-title{font-family:var(--fd);font-size:16px;letter-spacing:1px;margin-bottom:3px;}
+.rule-desc{font-size:11px;color:var(--text-muted);line-height:1.5;}
+.dl-partido{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;}
+.dl-partido-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.dl-partido-name{font-family:var(--fd);font-size:17px;letter-spacing:2px;}
+.dl-partido-name span{color:var(--orange);}
+.dl-table{width:100%;border-collapse:collapse;}
+.dl-table th{padding:8px 20px;text-align:left;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);background:var(--bg3);border-bottom:1px solid var(--border);}
+.dl-table td{padding:10px 20px;font-size:11px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.dl-table tr:last-child td{border-bottom:none;}
+.dl-table tr:hover td{background:var(--bg3);}
+.dl-who{font-weight:700;font-size:10px;}
+.dl-who.c1{color:var(--yellow);}
+.dl-who.c2{color:var(--purple);}
+.dl-who.c3{color:var(--orange);}
+.dl-who.c4{color:var(--green);}
+.dl-date{font-family:var(--fm);font-size:10px;font-weight:600;}
 .dl-date.done{color:var(--text-muted);text-decoration:line-through;}
 .dl-date.urgent{color:var(--orange);}
 .dl-date.ok{color:var(--text);}
-.dl-badge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:1px;}
+.dl-badge{padding:2px 9px;border-radius:100px;font-size:9px;font-weight:700;letter-spacing:1px;}
 .dl-badge.vencido{background:rgba(255,68,31,0.2);color:var(--orange);border:1px solid var(--orange);}
 .dl-badge.hoy{background:var(--yellow-dim);color:var(--yellow);border:1px solid var(--yellow);}
-.dl-badge.proximo{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
-.ejecucion-row td{opacity:0.65;}
-.meta-pill{background:var(--bg4);border:1px solid var(--border);padding:4px 10px;border-radius:7px;font-size:11px;font-weight:600;color:var(--text-muted);display:inline-flex;align-items:center;gap:5px;}
-.kickoff-pill{background:var(--orange-dim);border:1px solid var(--orange);color:var(--orange);font-weight:700;}
-.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-@media(max-width:900px){.deadlines-intro{grid-template-columns:1fr;}.cal-panel{width:100%;border-left:none;border-top:1px solid var(--border);}}
-.event-canales{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
-.event-canal-tag{font-size:9px;font-weight:600;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);letter-spacing:0.3px;}
+.dl-badge.prox{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+.ej-row td{opacity:0.6;}
+.meta-pill{background:var(--bg4);border:1px solid var(--border);padding:3px 9px;border-radius:6px;font-size:10px;font-weight:600;color:var(--text-muted);display:inline-flex;align-items:center;gap:4px;}
+.kp{background:var(--orange-dim);border:1px solid var(--orange);color:var(--orange);font-weight:700;}
+.sec-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* COPY MODE */
-.copy-banner{display:none;position:sticky;top:60px;z-index:150;background:#0D1F0D;border:1px solid var(--green);border-radius:10px;padding:12px 20px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-.copy-banner.active{display:flex;}
-.copy-banner-left{display:flex;align-items:center;gap:10px;}
-.copy-banner-icon{font-size:18px;}
-.copy-banner-text{font-size:12px;color:var(--green);font-weight:600;line-height:1.5;}
-.copy-banner-text span{color:var(--text-muted);font-weight:400;}
-.copy-cancel-btn{background:var(--bg4);border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
-.copy-cancel-btn:hover{border-color:var(--orange);color:var(--orange);}
-.cal-cell.copy-target{outline:2px dashed var(--green);outline-offset:-2px;background:rgba(0,208,132,0.04);}
-.cal-cell.copy-target:hover{background:rgba(0,208,132,0.12) !important;}
-.cal-cell.copy-source{outline:2px solid var(--green);outline-offset:-2px;}
-.event-copy-btn{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-size:9px;padding:2px 7px;border-radius:4px;cursor:pointer;opacity:0;transition:opacity 0.15s;font-family:var(--font-body);font-weight:700;z-index:10;letter-spacing:0.5px;}
-.cal-cell:hover .event-copy-btn{opacity:1;}
-.event-copy-btn:hover{background:var(--green-dim);border-color:var(--green);color:var(--green);}
-
-/* LOCK / EDIT MODE */
-.mode-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:1px;}
-.mode-badge.locked{background:rgba(107,116,148,0.15);border:1px solid var(--text-muted);color:var(--text-muted);}
-.mode-badge.editing{background:var(--green-dim);border:1px solid var(--green);color:var(--green);}
-.lock-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
-.lock-modal-overlay.active{display:flex;}
-.lock-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:32px;width:340px;text-align:center;}
-.lock-modal-icon{font-size:36px;margin-bottom:12px;}
-.lock-modal-title{font-family:var(--font-display);font-size:22px;letter-spacing:2px;margin-bottom:6px;}
-.lock-modal-desc{font-size:12px;color:var(--text-muted);margin-bottom:20px;line-height:1.5;}
-.lock-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:14px;color:var(--text);outline:none;text-align:center;letter-spacing:3px;margin-bottom:8px;}
-.lock-input:focus{border-color:var(--orange);}
-.lock-input.error{border-color:var(--orange);animation:shake 0.3s;}
-.lock-error{font-size:11px;color:var(--orange);margin-bottom:12px;min-height:16px;}
-.lock-btn{width:100%;background:var(--orange);color:#fff;border:none;padding:11px;border-radius:8px;font-family:var(--font-body);font-weight:700;font-size:13px;cursor:pointer;margin-bottom:8px;}
-.lock-btn:hover{background:var(--orange-light);}
-.lock-cancel{font-size:12px;color:var(--text-muted);cursor:pointer;text-decoration:underline;}
-.lock-cancel:hover{color:var(--text);}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
-.edit-hint{font-size:10px;color:var(--text-dim);text-align:center;padding:8px;letter-spacing:0.5px;}
-/* Read-only: disable interactions */
-body.read-only .cal-cell{cursor:default !important;pointer-events:none;}
-body.read-only .event-copy-btn{display:none;}
-body.read-only .export-btn{display:none;}
-body.read-only .copy-banner{display:none !important;}
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .cal-panel{width:270px;}
+}
+@media(max-width:768px){
+  header{padding:0 12px;}
+  .main{padding:12px;}
+  .logo{font-size:16px;}
+  .header-badge{display:none;}
+  .cal-panel{position:fixed;bottom:0;left:0;right:0;width:100%;max-height:70vh;border-left:none;border-top:1px solid var(--border);border-radius:14px 14px 0 0;z-index:200;overflow-y:auto;}
+  .cal-panel.open{display:flex;flex-direction:column;}
+  .deadlines-intro{grid-template-columns:1fr;}
+  .partido-btn{min-width:130px;}
+  .dl-table th:nth-child(4),.dl-table td:nth-child(4){display:none;}
+}
+@media(max-width:480px){
+  .partido-selector{flex-direction:column;}
+  .partido-btn{min-width:unset;}
+}
 </style>
 </head>
-<body>
+<body class="read-only">
 
 <header>
   <div class="header-left">
     <div class="logo">RAPPI <span>TURBO</span></div>
     <div class="header-badge">⚽ MUNDIAL 2026</div>
   </div>
-  <div style="display:flex;align-items:center;gap:12px;">
+  <div class="header-right">
     <div class="mode-badge locked" id="mode-badge">🔒 Solo lectura</div>
-    <button class="export-btn" id="export-btn" onclick="exportHTML()" style="display:none;">⬇ Exportar HTML</button>
+    <button class="export-btn" id="export-btn" style="display:none" onclick="exportHTML()">⬇ Exportar</button>
   </div>
 </header>
 
@@ -243,101 +277,89 @@ body.read-only .copy-banner{display:none !important;}
     <button class="partido-btn active" onclick="selectPartido(0,this)">
       <span class="pb-date">JUE 11 JUN 2026</span>
       <span class="pb-name">🇲🇽 MX vs Sudáfrica</span>
-      <span class="pb-stadium">Estadio Azteca · CDMX · 15:00</span>
+      <span class="pb-stadium">Azteca · CDMX · 15:00</span>
     </button>
     <button class="partido-btn" onclick="selectPartido(1,this)">
       <span class="pb-date">JUE 18 JUN 2026</span>
       <span class="pb-name">🇲🇽 MX vs Corea del Sur</span>
-      <span class="pb-stadium">Estadio Akron · GDL · 19:00</span>
+      <span class="pb-stadium">Akron · GDL · 19:00</span>
     </button>
     <button class="partido-btn" onclick="selectPartido(2,this)">
       <span class="pb-date">MIÉ 24 JUN 2026</span>
       <span class="pb-name">🇲🇽 Chequia vs MX</span>
-      <span class="pb-stadium">Estadio Azteca · CDMX · 21:00</span>
+      <span class="pb-stadium">Azteca · CDMX · 21:00</span>
     </button>
   </div>
 
+  <div class="view-toggle">
+    <span class="view-toggle-label">Vista</span>
+    <button class="vt-btn active" id="vt-franjas" onclick="setView('franjas',this)">▤ Franjas</button>
+    <button class="vt-btn" id="vt-horas" onclick="setView('horas',this)">☰ Hora a hora</button>
+  </div>
 
   <div class="copy-banner" id="copy-banner">
-    <div class="copy-banner-left">
-      <div class="copy-banner-icon">📋</div>
-      <div class="copy-banner-text">
-        Modo copia activo &mdash; <strong id="copy-banner-label"></strong><br>
-        <span>Haz clic en cualquier celda para pegar. Puedes pegar en múltiples celdas.</span>
-      </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:16px;">📋</span>
+      <div class="copy-banner-text">Copiando: <strong id="copy-label"></strong><br><span>Haz clic en una celda para pegar. Puedes pegar en múltiples celdas.</span></div>
     </div>
-    <button class="copy-cancel-btn" onclick="cancelCopy()">✕ Cancelar copia</button>
+    <button class="copy-cancel-btn" onclick="cancelCopy()">✕ Cancelar</button>
   </div>
+
   <div class="cal-wrapper">
     <div class="cal-main">
-      <div class="cal-header" id="cal-header"></div>
-      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-scroll">
+        <div class="cal-header" id="cal-header"></div>
+        <div id="view-horas" style="display:none;">
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div id="view-franjas">
+          <div class="franjas-grid" id="franjas-grid"></div>
+        </div>
+      </div>
     </div>
     <div class="cal-panel" id="cal-panel">
       <div class="panel-header">
-        <div class="panel-title" id="panel-title">Editar comunicación</div>
+        <div class="panel-title" id="panel-title">Editar</div>
         <button class="panel-close" onclick="closePanel()">✕</button>
       </div>
       <div class="panel-body">
         <div class="panel-meta" id="panel-meta"></div>
-
         <div class="field-block">
           <div class="field-label">Capa</div>
-          <div class="panel-capa-selector">
-            <div class="capa-opt cashback" onclick="selectCapa('cashback',this)">🪙 D-1 Cashback</div>
-            <div class="capa-opt morning" onclick="selectCapa('morning',this)">🔥 Morning Rush</div>
-            <div class="capa-opt bigame" onclick="selectCapa('bigame',this)">🎯 Big Game</div>
-            <div class="capa-opt recovery" onclick="selectCapa('recovery',this)">🚀 Recovery</div>
+          <div class="capa-selector">
+            <div class="capa-opt cashback" onclick="selCapa('cashback',this)">🪙 Cashback</div>
+            <div class="capa-opt morning" onclick="selCapa('morning',this)">🔥 Morning Rush</div>
+            <div class="capa-opt bigame" onclick="selCapa('bigame',this)">🎯 Big Game</div>
+            <div class="capa-opt recovery" onclick="selCapa('recovery',this)">🚀 Recovery</div>
           </div>
         </div>
-
+        <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" id="f-desc" type="text" placeholder="ej. $100 Cashback / 50% OFF / Pague 2 lleve 3"></div>
+        <div class="field-block"><div class="field-label">Producto</div><input class="field-input" id="f-prod" type="text" placeholder="ej. Cerveza latón 355ml"></div>
+        <div class="field-block"><div class="field-label">Marca</div><input class="field-input" id="f-marca" type="text" placeholder="ej. Modelo / Heineken / Sabritas"></div>
+        <div class="field-block"><div class="field-label">Copy del mensaje</div><textarea class="field-input field-ta" id="f-copy" placeholder="ej. Mañana juega México 🇲🇽 Pide hoy y recibe $100 de vuelta."></textarea></div>
         <div class="field-block">
-          <div class="field-label">Descuento / Mecánica</div>
-          <input class="field-input" id="f-descuento" type="text" placeholder="ej. $100 Cashback · min $400 / 50% OFF / Pague 2 lleve 3">
-        </div>
-        <div class="field-block">
-          <div class="field-label">Producto</div>
-          <input class="field-input" id="f-producto" type="text" placeholder="ej. Cerveza latón 355ml / Botanas tamaño familiar">
-        </div>
-        <div class="field-block">
-          <div class="field-label">Marca</div>
-          <input class="field-input" id="f-marca" type="text" placeholder="ej. Modelo / Heineken / Sabritas">
-        </div>
-        <div class="field-block">
-          <div class="field-label">Copy del mensaje</div>
-          <textarea class="field-input field-textarea" id="f-copy" placeholder="ej. Mañana juega México 🇲🇽 Pide hoy y recibe $100 de vuelta."></textarea>
-        </div>
-
-        <div class="field-block">
-          <div class="field-label" style="margin-bottom:8px;">Canales</div>
-          <div class="canal-group">
-            <div class="canal-group-label">Fuera de App</div>
-            <div class="canal-tags">
-              <span class="canal-tag" data-canal="push" onclick="toggleCanal(this)">📲 Push</span>
-              <span class="canal-tag" data-canal="sms" onclick="toggleCanal(this)">💬 SMS</span>
-              <span class="canal-tag" data-canal="whatsapp" onclick="toggleCanal(this)">📱 WhatsApp</span>
-              <span class="canal-tag" data-canal="email" onclick="toggleCanal(this)">📧 Email</span>
-            </div>
+          <div class="field-label">Canales</div>
+          <div class="cg-label">Fuera de App</div>
+          <div class="canal-tags">
+            <span class="canal-tag" data-canal="push" onclick="togCanal(this)">📲 Push</span>
+            <span class="canal-tag" data-canal="sms" onclick="togCanal(this)">💬 SMS</span>
+            <span class="canal-tag" data-canal="whatsapp" onclick="togCanal(this)">📱 WhatsApp</span>
+            <span class="canal-tag" data-canal="email" onclick="togCanal(this)">📧 Email</span>
           </div>
-          <div class="canal-group">
-            <div class="canal-group-label">InApp</div>
-            <div class="canal-tags">
-              <span class="canal-tag" data-canal="slideup" onclick="toggleCanal(this)">↑ Slide Up</span>
-              <span class="canal-tag" data-canal="splash" onclick="toggleCanal(this)">🏠 Splash Home</span>
-              <span class="canal-tag" data-canal="bannerhome" onclick="toggleCanal(this)">🖼 Banner Home</span>
-              <span class="canal-tag" data-canal="bannerv" onclick="toggleCanal(this)">📐 Banner Vertical</span>
-              <span class="canal-tag" data-canal="inapp" onclick="toggleCanal(this)">📍 InApp</span>
-            </div>
+          <div class="cg-label">InApp</div>
+          <div class="canal-tags">
+            <span class="canal-tag" data-canal="slideup" onclick="togCanal(this)">↑ Slide Up</span>
+            <span class="canal-tag" data-canal="splash" onclick="togCanal(this)">🏠 Splash</span>
+            <span class="canal-tag" data-canal="bannerhome" onclick="togCanal(this)">🖼 Banner H</span>
+            <span class="canal-tag" data-canal="bannerv" onclick="togCanal(this)">📐 Banner V</span>
+            <span class="canal-tag" data-canal="inapp" onclick="togCanal(this)">📍 InApp</span>
           </div>
-          <div class="canal-group">
-            <div class="canal-group-label">Redes</div>
-            <div class="canal-tags">
-              <span class="canal-tag" data-canal="igstory" onclick="toggleCanal(this)">📸 IG Story</span>
-              <span class="canal-tag" data-canal="paid" onclick="toggleCanal(this)">💰 Paid Media</span>
-            </div>
+          <div class="cg-label">Redes</div>
+          <div class="canal-tags">
+            <span class="canal-tag" data-canal="igstory" onclick="togCanal(this)">📸 IG Story</span>
+            <span class="canal-tag" data-canal="paid" onclick="togCanal(this)">💰 Paid Media</span>
           </div>
         </div>
-
         <div class="panel-actions">
           <button class="btn-save" onclick="saveSlot()">Guardar</button>
           <button class="btn-clear" onclick="clearSlot()">Limpiar</button>
@@ -345,366 +367,438 @@ body.read-only .copy-banner{display:none !important;}
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- ══ TAB 2 ══ -->
 <div id="tab-reglas" class="tab-content">
-  <div class="section-label">Cómo funciona el proceso</div>
+  <div class="sec-label">Cómo funciona el proceso</div>
   <div class="deadlines-intro">
-    <div class="deadline-rule-card">
-      <div class="rule-step">PASO 01</div>
-      <div class="rule-title" style="color:var(--yellow)">📦 Comerciales</div>
-      <div class="rule-desc">Entregan deals confirmados con assets. Deadline: <strong>domingo</strong> de la semana anterior al partido.</div>
-    </div>
-    <div class="deadline-rule-card">
-      <div class="rule-step">PASO 02</div>
-      <div class="rule-title" style="color:var(--purple)">🎨 Producción</div>
-      <div class="rule-desc">Arte produce las piezas. Deadline: <strong>lunes</strong> de la semana del partido. Máx. 2 días.</div>
-    </div>
-    <div class="deadline-rule-card">
-      <div class="rule-step">PASO 03</div>
-      <div class="rule-title" style="color:var(--orange)">⚙️ Programación</div>
-      <div class="rule-desc">Todo queda programado. Deadline inamovible: <strong>miércoles</strong> de la semana del partido.</div>
-    </div>
+    <div class="dl-rule-card"><div class="rule-step">PASO 01</div><div class="rule-title" style="color:var(--yellow)">📦 Comerciales</div><div class="rule-desc">Entregan deals + assets. Deadline: <strong>domingo</strong> de la semana anterior al partido.</div></div>
+    <div class="dl-rule-card"><div class="rule-step">PASO 02</div><div class="rule-title" style="color:var(--purple)">🎨 Producción</div><div class="rule-desc">Arte produce las piezas. Deadline: <strong>lunes</strong> de la semana del partido. Máx. 2 días.</div></div>
+    <div class="dl-rule-card"><div class="rule-step">PASO 03</div><div class="rule-title" style="color:var(--orange)">⚙️ Programación</div><div class="rule-desc">Todo programado en plataforma. Deadline inamovible: <strong>miércoles</strong> de la semana del partido.</div></div>
   </div>
+  <div class="sec-label">Deadlines por partido</div>
 
-  <div class="section-label">Deadlines por partido</div>
-
-  <div class="deadline-partido">
-    <div class="deadline-partido-header">
-      <div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 01 · GRUPO A</div>
-        <div class="deadline-partido-name">MÉXICO <span>vs</span> SUDÁFRICA</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <span class="meta-pill kickoff-pill">⚽ Jue 11 Jun · 15:00 · Azteca CDMX</span>
-        <span class="dl-badge vencido">⚠ SEMANA EN CURSO</span>
-      </div>
+  <div class="dl-partido">
+    <div class="dl-partido-hdr">
+      <div><div style="font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 01 · GRUPO A</div><div class="dl-partido-name">MÉXICO <span>vs</span> SUDÁFRICA</div></div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;"><span class="meta-pill kp">⚽ Jue 11 Jun · 15:00 · Azteca</span><span class="dl-badge vencido">⚠ SEMANA EN CURSO</span></div>
     </div>
-    <table class="deadline-table">
+    <table class="dl-table">
       <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Referencia</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr><td>Deals + assets confirmados</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date done">Dom 31 May</span></td><td style="color:var(--text-muted);font-size:11px;">D-3 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
-        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date done">Lun 1 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-2 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
-        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador</span></td><td><span class="dl-date urgent">Mié 3 Jun</span></td><td style="color:var(--yellow);font-size:11px;font-weight:700;">🔴 HOY</td><td><span class="dl-badge hoy">HOY</span></td></tr>
-        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🎯 Big Game · 13:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 – Vie 12 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr><td>Deals + assets</td><td><span class="dl-who c1">Equipo Comercial</span></td><td><span class="dl-date done">Dom 31 May</span></td><td style="color:var(--text-muted);font-size:10px;">D-3 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
+        <tr><td>Piezas de arte</td><td><span class="dl-who c2">Producción</span></td><td><span class="dl-date done">Lun 1 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">D-2 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
+        <tr><td>Programación completa</td><td><span class="dl-who c3">Coordinador</span></td><td><span class="dl-date urgent">Mié 3 Jun</span></td><td style="color:var(--yellow);font-size:10px;font-weight:700;">🔴 HOY</td><td><span class="dl-badge hoy">HOY</span></td></tr>
+        <tr class="ej-row"><td>🪙 Cashback D-1</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🔥 Morning Rush</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🎯 Big Game</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🚀 Recovery</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Jue 11 – Vie 12 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="deadline-partido">
-    <div class="deadline-partido-header">
-      <div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 02 · GRUPO A</div>
-        <div class="deadline-partido-name">MÉXICO <span>vs</span> COREA DEL SUR</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <span class="meta-pill kickoff-pill">⚽ Jue 18 Jun · 19:00 · Akron GDL</span>
-        <span class="dl-badge proximo">Próximo</span>
-      </div>
+  <div class="dl-partido">
+    <div class="dl-partido-hdr">
+      <div><div style="font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 02 · GRUPO A</div><div class="dl-partido-name">MÉXICO <span>vs</span> COREA DEL SUR</div></div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;"><span class="meta-pill kp">⚽ Jue 18 Jun · 19:00 · Akron GDL</span><span class="dl-badge prox">Próximo</span></div>
     </div>
-    <table class="deadline-table">
+    <table class="dl-table">
       <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Referencia</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr><td>Deals + assets confirmados</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 7 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-3 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date ok">Lun 8 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-2 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Miércoles de cierre</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🎯 Big Game · 17:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 – Vie 19 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr><td>Deals + assets</td><td><span class="dl-who c1">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 7 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">D-3 del miércoles</td><td><span class="dl-badge prox">Próximo</span></td></tr>
+        <tr><td>Piezas de arte</td><td><span class="dl-who c2">Producción</span></td><td><span class="dl-date ok">Lun 8 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">D-2 del miércoles</td><td><span class="dl-badge prox">Próximo</span></td></tr>
+        <tr><td>Programación completa</td><td><span class="dl-who c3">Coordinador</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Miércoles de cierre</td><td><span class="dl-badge prox">Próximo</span></td></tr>
+        <tr class="ej-row"><td>🪙 Cashback D-1</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🔥 Morning Rush</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🎯 Big Game</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🚀 Recovery</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Jue 18 – Vie 19 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="deadline-partido">
-    <div class="deadline-partido-header">
-      <div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 03 · GRUPO A</div>
-        <div class="deadline-partido-name">CHEQUIA <span>vs</span> MÉXICO</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <span class="meta-pill kickoff-pill">⚽ Mié 24 Jun · 21:00 · Azteca CDMX</span>
-        <span class="dl-badge proximo">Próximo</span>
-      </div>
+  <div class="dl-partido">
+    <div class="dl-partido-hdr">
+      <div><div style="font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 03 · GRUPO A</div><div class="dl-partido-name">CHEQUIA <span>vs</span> MÉXICO</div></div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;"><span class="meta-pill kp">⚽ Mié 24 Jun · 21:00 · Azteca CDMX</span><span class="dl-badge prox">Próximo</span></div>
     </div>
-    <table class="deadline-table">
+    <table class="dl-table">
       <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Referencia</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr><td>Deals + assets confirmados</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 14 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-3 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date ok">Lun 15 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-2 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Miércoles de cierre</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mar 23 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🎯 Big Game · 19:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 – Jue 25 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr><td>Deals + assets</td><td><span class="dl-who c1">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 14 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">D-3 del miércoles</td><td><span class="dl-badge prox">Próximo</span></td></tr>
+        <tr><td>Piezas de arte</td><td><span class="dl-who c2">Producción</span></td><td><span class="dl-date ok">Lun 15 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">D-2 del miércoles</td><td><span class="dl-badge prox">Próximo</span></td></tr>
+        <tr><td>Programación completa</td><td><span class="dl-who c3">Coordinador</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Miércoles de cierre</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🪙 Cashback D-1</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Mar 23 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🔥 Morning Rush</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🎯 Big Game</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
+        <tr class="ej-row"><td>🚀 Recovery</td><td><span class="dl-who c4">Plataforma</span></td><td><span class="dl-date ok">Mié 24 – Jue 25 Jun</span></td><td style="color:var(--text-muted);font-size:10px;">Automático</td><td><span class="dl-badge prox">Programado</span></td></tr>
       </tbody>
     </table>
   </div>
-</div>
+</div><!-- /tab-reglas -->
 
-
-<!-- LOCK MODAL -->
-<div class="lock-modal-overlay" id="lock-overlay">
-  <div class="lock-modal">
-    <div class="lock-modal-icon">🔐</div>
-    <div class="lock-modal-title">MODO EDICIÓN</div>
-    <div class="lock-modal-desc">Ingresa la clave para activar la edición del tablero.</div>
-    <input class="lock-input" id="lock-input" type="password" placeholder="••••••••" maxlength="20" onkeydown="if(event.key==='Enter')checkPassword()">
-    <div class="lock-error" id="lock-error"></div>
-    <button class="lock-btn" onclick="checkPassword()">Activar edición</button>
-    <div class="lock-cancel" onclick="closeLockModal()">Cancelar</div>
-  </div>
-</div>
 </div><!-- /main -->
 
+<!-- LOCK MODAL -->
+<div class="lock-overlay" id="lock-overlay">
+  <div class="lock-modal">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">MODO EDICIÓN</div>
+    <div class="lock-desc">Ingresa la clave para editar el tablero.</div>
+    <input class="lock-input" id="lock-input" type="password" placeholder="••••••••" maxlength="20" onkeydown="if(event.key==='Enter')checkPwd()">
+    <div class="lock-err" id="lock-err"></div>
+    <button class="lock-btn" onclick="checkPwd()">Activar edición</button>
+    <div class="lock-cancel" onclick="closeLock()">Cancelar</div>
+  </div>
+</div>
+
 <script>
-const PARTIDOS = [
-  {
-    id:'p0', label:'MX vs Sudáfrica',
-    kickoffDay: 'jue', kickoff: 15,
-    week: [
-      {col:'lun', day:'LUN', date:'8 JUN',  label:'LUNES'},
-      {col:'mar', day:'MAR', date:'9 JUN',  label:'MARTES'},
-      {col:'mie', day:'MIÉ', date:'10 JUN', label:'MIÉRCOLES'},
-      {col:'jue', day:'JUE', date:'11 JUN', label:'JUEVES', matchDay:true, kickoff:15},
-      {col:'vie', day:'VIE', date:'12 JUN', label:'VIERNES'},
-      {col:'sab', day:'SÁB', date:'13 JUN', label:'SÁBADO'},
-      {col:'dom', day:'DOM', date:'14 JUN', label:'DOMINGO'},
-    ]
-  },
-  {
-    id:'p1', label:'MX vs Corea del Sur',
-    kickoffDay: 'jue', kickoff: 19,
-    week: [
-      {col:'lun', day:'LUN', date:'15 JUN', label:'LUNES'},
-      {col:'mar', day:'MAR', date:'16 JUN', label:'MARTES'},
-      {col:'mie', day:'MIÉ', date:'17 JUN', label:'MIÉRCOLES'},
-      {col:'jue', day:'JUE', date:'18 JUN', label:'JUEVES', matchDay:true, kickoff:19},
-      {col:'vie', day:'VIE', date:'19 JUN', label:'VIERNES'},
-      {col:'sab', day:'SÁB', date:'20 JUN', label:'SÁBADO'},
-      {col:'dom', day:'DOM', date:'21 JUN', label:'DOMINGO'},
-    ]
-  },
-  {
-    id:'p2', label:'Chequia vs MX',
-    kickoffDay: 'mie', kickoff: 21,
-    week: [
-      {col:'lun', day:'LUN', date:'22 JUN', label:'LUNES'},
-      {col:'mar', day:'MAR', date:'23 JUN', label:'MARTES'},
-      {col:'mie', day:'MIÉ', date:'24 JUN', label:'MIÉRCOLES', matchDay:true, kickoff:21},
-      {col:'jue', day:'JUE', date:'25 JUN', label:'JUEVES'},
-      {col:'vie', day:'VIE', date:'26 JUN', label:'VIERNES'},
-      {col:'sab', day:'SÁB', date:'27 JUN', label:'SÁBADO'},
-      {col:'dom', day:'DOM', date:'28 JUN', label:'DOMINGO'},
-    ]
-  }
+// ── DATA ──
+const PARTIDOS=[
+  {id:'p0',label:'MX vs Sudáfrica',week:[
+    {col:'lun',day:'LUN',date:'8 JUN',label:'LUNES'},
+    {col:'mar',day:'MAR',date:'9 JUN',label:'MARTES'},
+    {col:'mie',day:'MIÉ',date:'10 JUN',label:'MIÉRCOLES'},
+    {col:'jue',day:'JUE',date:'11 JUN',label:'JUEVES',matchDay:true,kickoff:15},
+    {col:'vie',day:'VIE',date:'12 JUN',label:'VIERNES'},
+    {col:'sab',day:'SÁB',date:'13 JUN',label:'SÁBADO'},
+    {col:'dom',day:'DOM',date:'14 JUN',label:'DOMINGO'},
+  ]},
+  {id:'p1',label:'MX vs Corea del Sur',week:[
+    {col:'lun',day:'LUN',date:'15 JUN',label:'LUNES'},
+    {col:'mar',day:'MAR',date:'16 JUN',label:'MARTES'},
+    {col:'mie',day:'MIÉ',date:'17 JUN',label:'MIÉRCOLES'},
+    {col:'jue',day:'JUE',date:'18 JUN',label:'JUEVES',matchDay:true,kickoff:19},
+    {col:'vie',day:'VIE',date:'19 JUN',label:'VIERNES'},
+    {col:'sab',day:'SÁB',date:'20 JUN',label:'SÁBADO'},
+    {col:'dom',day:'DOM',date:'21 JUN',label:'DOMINGO'},
+  ]},
+  {id:'p2',label:'Chequia vs MX',week:[
+    {col:'lun',day:'LUN',date:'22 JUN',label:'LUNES'},
+    {col:'mar',day:'MAR',date:'23 JUN',label:'MARTES'},
+    {col:'mie',day:'MIÉ',date:'24 JUN',label:'MIÉRCOLES',matchDay:true,kickoff:21},
+    {col:'jue',day:'JUE',date:'25 JUN',label:'JUEVES'},
+    {col:'vie',day:'VIE',date:'26 JUN',label:'VIERNES'},
+    {col:'sab',day:'SÁB',date:'27 JUN',label:'SÁBADO'},
+    {col:'dom',day:'DOM',date:'28 JUN',label:'DOMINGO'},
+  ]}
 ];
 
-const HOURS = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+const HOURS=[7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+const FRANJAS=[
+  {id:'f0',label:'07h – 12h',hours:[7,8,9,10,11]},
+  {id:'f1',label:'12h – 16h',hours:[12,13,14,15]},
+  {id:'f2',label:'16h – 19h',hours:[16,17,18]},
+  {id:'f3',label:'19h – 22h',hours:[19,20,21]},
+  {id:'f4',label:'22h – 07h',hours:[22,23]},
+];
+const CAPA_LABELS={cashback:'🪙 D-1 Cashback',morning:'🔥 Morning Rush',bigame:'🎯 Big Game',recovery:'🚀 Recovery'};
+const CANAL_ICONS={push:'📲',sms:'💬',whatsapp:'📱',email:'📧',slideup:'↑',splash:'🏠',bannerhome:'🖼',bannerv:'📐',inapp:'📍',igstory:'📸',paid:'💰'};
+const CANAL_NAMES={push:'Push',sms:'SMS',whatsapp:'WA',email:'Email',slideup:'Slide Up',splash:'Splash',bannerhome:'Banner H',bannerv:'Banner V',inapp:'InApp',igstory:'IG Story',paid:'Paid'};
 
-// data[partidoIdx][col][hour] = {capa, descuento, producto, marca, copy, canales:[]}
-let data = [{},{},{}];
+let data=[{},{},{}];
 PARTIDOS.forEach((_,pi)=>{
-  PARTIDOS[pi].week.forEach(d=>{ data[pi][d.col]={}; HOURS.forEach(h=>{ data[pi][d.col][h]=null; }); });
+  PARTIDOS[pi].week.forEach(d=>{data[pi][d.col]={};HOURS.forEach(h=>{data[pi][d.col][h]=null;});});
 });
 
-let currentPartido = 0;
-let currentSlot = null;
-let currentCapa = null;
-let copyBuffer = null;
-let copyMode = false;
+let curPartido=0,curSlot=null,curCapa=null,copyBuffer=null,copyMode=false,curView='franjas';
+let franjaOpen={}; // {f0:true, f1:false ...}
 
-function selectPartido(idx, btn){
-  currentPartido = idx;
+// ── LOCK ──
+const PWD='admin123';
+let editMode=false;
+
+function activateReadOnly(){
+  editMode=false;
+  document.body.classList.add('read-only');
+  document.getElementById('mode-badge').className='mode-badge locked';
+  document.getElementById('mode-badge').textContent='🔒 Solo lectura';
+  document.getElementById('export-btn').style.display='none';
+  if(copyMode)cancelCopy();
+}
+function activateEdit(){
+  editMode=true;
+  document.body.classList.remove('read-only');
+  document.getElementById('mode-badge').className='mode-badge editing';
+  document.getElementById('mode-badge').textContent='✏️ Modo edición';
+  document.getElementById('export-btn').style.display='block';
+}
+function openLock(){
+  document.getElementById('lock-overlay').classList.add('active');
+  document.getElementById('lock-input').value='';
+  document.getElementById('lock-err').textContent='';
+  document.getElementById('lock-input').classList.remove('err');
+  setTimeout(()=>document.getElementById('lock-input').focus(),100);
+}
+function closeLock(){document.getElementById('lock-overlay').classList.remove('active');}
+function checkPwd(){
+  const v=document.getElementById('lock-input').value;
+  if(v===PWD){closeLock();activateEdit();}
+  else{
+    document.getElementById('lock-err').textContent='Clave incorrecta.';
+    document.getElementById('lock-input').classList.add('err');
+    document.getElementById('lock-input').value='';
+    setTimeout(()=>document.getElementById('lock-input').classList.remove('err'),400);
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.shiftKey&&e.key==='E'){e.preventDefault();editMode?activateReadOnly():openLock();}
+  if(e.key==='Escape')closeLock();
+});
+
+// ── VIEW TOGGLE ──
+function setView(v,btn){
+  curView=v;
+  document.querySelectorAll('.vt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('view-horas').style.display=v==='horas'?'block':'none';
+  document.getElementById('view-franjas').style.display=v==='franjas'?'block':'none';
+  render();
+}
+
+// ── PARTIDO ──
+function selectPartido(idx,btn){
+  curPartido=idx;
   document.querySelectorAll('.partido-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  franjaOpen={};
   closePanel();
-  renderCalendar();
+  render();
 }
 
-function renderCalendar(){
-  const p = PARTIDOS[currentPartido];
-  const week = p.week;
-
-  // Header — 1 time col + 7 day cols
-  const hdr = document.getElementById('cal-header');
-  hdr.style.gridTemplateColumns = '64px repeat(7,1fr)';
-  let hdrHTML = '<div class="cal-header-time"></div>';
-  week.forEach(d=>{
-    const matchClass = d.matchDay ? 'match-day' : '';
-    const kickoffLine = d.matchDay ? `${d.day} ⚽ ${d.kickoff}:00` : d.day;
-    hdrHTML += `<div class="cal-header-day ${matchClass}">
-      <div class="day-label">${d.label}</div>
-      <div class="day-date">${d.date}</div>
-      <div class="day-name">${kickoffLine}</div>
-    </div>`;
+// ── RENDER HEADER (shared) ──
+function renderHeader(){
+  const p=PARTIDOS[curPartido];
+  const cols=7;
+  const hdr=document.getElementById('cal-header');
+  hdr.style.gridTemplateColumns=`var(--col-time) repeat(${cols},1fr)`;
+  let h='<div class="cal-header-time"></div>';
+  p.week.forEach(d=>{
+    const mc=d.matchDay?'match-day':'';
+    const kl=d.matchDay?`${d.day} ⚽${d.kickoff}:00`:d.day;
+    h+=`<div class="cal-header-day ${mc}"><div class="chd-label">${d.label}</div><div class="chd-date">${d.date}</div><div class="chd-name">${kl}</div></div>`;
   });
-  hdr.innerHTML = hdrHTML;
-
-  // Grid
-  const grid = document.getElementById('cal-grid');
-  grid.innerHTML = '';
-  HOURS.forEach(h=>{
-    const row = document.createElement('div');
-    row.className = 'cal-row';
-    row.style.gridTemplateColumns = '64px repeat(7,1fr)';
-    // time cell
-    const tc = document.createElement('div');
-    tc.className = 'cal-time';
-    tc.textContent = h.toString().padStart(2,'0')+':00';
-    row.appendChild(tc);
-    // day cells
-    week.forEach(d=>{
-      const col = d.col;
-      const cell = document.createElement('div');
-      cell.className = 'cal-cell';
-      cell.onclick = ()=>openPanel(col,h);
-      if(copyMode){
-        if(copyBuffer && copyBuffer.sourceCol===col && copyBuffer.sourceHour===h){
-          cell.classList.add('copy-source');
-        } else {
-          cell.classList.add('copy-target');
-        }
-      }
-
-      const slotData = data[currentPartido][col][h];
-      // kickoff marker
-      if(d.matchDay && h===d.kickoff){
-        const km = document.createElement('div');
-        km.className='kickoff-marker';
-        km.innerHTML='⚽ KICKOFF '+d.kickoff+':00';
-        cell.appendChild(km);
-        cell.style.background='rgba(255,68,31,0.06)';
-      }
-
-      if(slotData){
-        cell.classList.add('has-event');
-        const eb = document.createElement('div');
-        eb.className='event-block '+slotData.capa;
-        const capaLabels={cashback:'🪙 D-1 Cashback',morning:'🔥 Morning Rush',bigame:'🎯 Big Game',recovery:'🚀 Recovery'};
-        const canalIconos={push:'📲',sms:'💬',whatsapp:'📱',email:'📧',slideup:'↑',splash:'🏠',bannerhome:'🖼',bannerv:'📐',inapp:'📍',igstory:'📸',paid:'💰'};
-        const canalNames={push:'Push',sms:'SMS',whatsapp:'WA',email:'Email',slideup:'Slide Up',splash:'Splash',bannerhome:'Banner H',bannerv:'Banner V',inapp:'InApp',igstory:'IG Story',paid:'Paid'};
-        const canalesHTML = (slotData.canales&&slotData.canales.length)
-          ? `<div class="event-canales">${slotData.canales.map(c=>`<span class="event-canal-tag">${canalIconos[c]||''} ${canalNames[c]||c}</span>`).join('')}</div>`
-          : '';
-        eb.innerHTML=`
-          <div class="event-capa">${capaLabels[slotData.capa]||''}</div>
-          <div class="event-info">
-            ${slotData.descuento?`<strong>${slotData.descuento}</strong><br>`:''}
-            ${slotData.producto?`${slotData.producto}`:''}
-            ${slotData.marca?` · <em>${slotData.marca}</em>`:''}
-          </div>
-          ${canalesHTML}
-        `;
-        const cpBtn = document.createElement('button');
-        cpBtn.className = 'event-copy-btn';
-        cpBtn.textContent = '📋 Copiar';
-        cpBtn.onclick = (e) => copySlot(col, h, e);
-        eb.style.position = 'relative';
-        eb.appendChild(cpBtn);
-        cell.appendChild(eb);
-      } else {
-        const add = document.createElement('div');
-        add.className='event-add';
-        add.textContent='+';
-        cell.appendChild(add);
-      }
-      row.appendChild(cell);
-    }); // end week.forEach
-    grid.appendChild(row);
-  }); // end HOURS.forEach
+  hdr.innerHTML=h;
 }
 
-function openPanel(col, hour){
-  if(copyMode && copyBuffer){
-    pasteSlot(col, hour);
-    return;
-  }
-  currentSlot = {col, hour};
-  const p = PARTIDOS[currentPartido];
-  const dayObj = p.week.find(d=>d.col===col)||{};
-  const dayLabel = (dayObj.matchDay ? '⚽ ' : '') + dayObj.day + ' ' + dayObj.date;
-  document.getElementById('panel-title').textContent = dayLabel + ' · ' + hour.toString().padStart(2,'0') + ':00';
-  document.getElementById('panel-meta').innerHTML =
-    `<strong>Partido:</strong> ${p.label}<br>
-     <strong>Día:</strong> ${dayLabel}${dayObj.matchDay ? ' — DÍA DEL PARTIDO' : ''}<br>
-     <strong>Hora:</strong> ${hour.toString().padStart(2,'0')}:00 – ${(hour+1).toString().padStart(2,'0')}:00`;
-
-  // Load existing data
-  const slotData = data[currentPartido][col][hour];
-  document.getElementById('f-descuento').value = slotData?.descuento||'';
-  document.getElementById('f-producto').value = slotData?.producto||'';
-  document.getElementById('f-marca').value = slotData?.marca||'';
-  document.getElementById('f-copy').value = slotData?.copy||'';
-
-  // Reset canales
-  document.querySelectorAll('.canal-tag').forEach(t=>t.classList.remove('on'));
-  if(slotData?.canales){
-    slotData.canales.forEach(c=>{
-      const tag = document.querySelector('.canal-tag[data-canal="'+c+'"]');
-      if(tag) tag.classList.add('on');
+// ── RENDER HORA A HORA ──
+function renderHoras(){
+  const p=PARTIDOS[curPartido];
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML='';
+  HOURS.forEach(h=>{
+    const row=document.createElement('div');
+    row.className='cal-row';
+    row.style.gridTemplateColumns=`var(--col-time) repeat(7,1fr)`;
+    const tc=document.createElement('div');
+    tc.className='cal-time';
+    tc.textContent=h.toString().padStart(2,'0')+':00';
+    row.appendChild(tc);
+    p.week.forEach(d=>{
+      row.appendChild(makeCell(d.col,h,d));
     });
-  }
+    grid.appendChild(row);
+  });
+}
 
-  // Reset capa
+// ── RENDER FRANJAS ──
+function renderFranjas(){
+  const p=PARTIDOS[curPartido];
+  const fg=document.getElementById('franjas-grid');
+  fg.innerHTML='';
+
+  FRANJAS.forEach(franja=>{
+    const isOpen=!!franjaOpen[franja.id];
+    const fRow=document.createElement('div');
+    fRow.className='franja-row';
+
+    // Summary header row
+    const sumRow=document.createElement('div');
+    sumRow.className='franja-header-row';
+    sumRow.style.gridTemplateColumns=`var(--col-time) repeat(7,1fr)`;
+
+    // Time+toggle cell
+    const timeCell=document.createElement('div');
+    timeCell.className='franja-time-cell';
+    timeCell.innerHTML=`<div class="franja-label">${franja.label}</div>
+      <button class="franja-toggle-btn" onclick="toggleFranja('${franja.id}')">${isOpen?'−':'+'}</button>`;
+    sumRow.appendChild(timeCell);
+
+    // Summary per day
+    p.week.forEach(d=>{
+      const dayCell=document.createElement('div');
+      dayCell.className='franja-day-cell';
+      dayCell.style.borderLeft='1px solid var(--border)';
+      const slots=franja.hours.map(h=>data[curPartido][d.col][h]).filter(Boolean);
+      if(slots.length===0){
+        dayCell.innerHTML='<div class="franja-empty">—</div>';
+      } else {
+        // Collect all unique canales and descuentos
+        const canales=[...new Set(slots.flatMap(s=>s.canales||[]))];
+        const descuentos=[...new Set(slots.map(s=>s.descuento).filter(Boolean))];
+        const capas=[...new Set(slots.map(s=>s.capa).filter(Boolean))];
+        let html='<div class="franja-summary">';
+        if(descuentos.length) html+=`<div class="franja-descuento">${capas.map(c=>`<span class="franja-capa-dot ${c}"></span>`).join('')}${descuentos.join(' / ')}</div>`;
+        if(canales.length) html+=`<div class="franja-canales">${canales.map(c=>`<span class="franja-canal-chip">${CANAL_ICONS[c]||''} ${CANAL_NAMES[c]||c}</span>`).join('')}</div>`;
+        html+='</div>';
+        dayCell.innerHTML=html;
+      }
+      sumRow.appendChild(dayCell);
+    });
+    fRow.appendChild(sumRow);
+
+    // Detail rows (expandable)
+    const detailRows=document.createElement('div');
+    detailRows.className='franja-detail-rows'+(isOpen?' open':'');
+    franja.hours.forEach(h=>{
+      const dr=document.createElement('div');
+      dr.className='franja-detail-row';
+      dr.style.gridTemplateColumns=`var(--col-time) repeat(7,1fr)`;
+      const dt=document.createElement('div');
+      dt.className='franja-detail-time';
+      dt.textContent=h.toString().padStart(2,'0')+':00';
+      dr.appendChild(dt);
+      p.week.forEach(d=>{
+        dr.appendChild(makeCell(d.col,h,d));
+      });
+      detailRows.appendChild(dr);
+    });
+    fRow.appendChild(detailRows);
+    fg.appendChild(fRow);
+  });
+}
+
+function toggleFranja(id){
+  if(!editMode&&!true){return;} // toggle always works for viewing
+  franjaOpen[id]=!franjaOpen[id];
+  renderFranjas();
+}
+
+// ── MAKE CELL ──
+function makeCell(col,h,dayObj){
+  const cell=document.createElement('div');
+  cell.className='cal-cell';
+  cell.onclick=()=>openPanel(col,h,dayObj);
+  if(copyMode){
+    if(copyBuffer&&copyBuffer.sourceCol===col&&copyBuffer.sourceHour===h) cell.classList.add('copy-source');
+    else cell.classList.add('copy-target');
+  }
+  const slotData=data[curPartido][col][h];
+  if(dayObj&&dayObj.matchDay&&h===dayObj.kickoff){
+    const km=document.createElement('div');
+    km.className='kickoff-marker';
+    km.innerHTML='⚽ '+dayObj.kickoff+':00';
+    cell.appendChild(km);
+    cell.style.background='rgba(255,68,31,0.06)';
+  }
+  if(slotData){
+    cell.classList.add('has-event');
+    const eb=document.createElement('div');
+    eb.className='event-block '+slotData.capa;
+    eb.style.position='relative';
+    const canalesHTML=(slotData.canales&&slotData.canales.length)
+      ?`<div class="event-canales">${slotData.canales.map(c=>`<span class="event-canal-tag">${CANAL_ICONS[c]||''} ${CANAL_NAMES[c]||c}</span>`).join('')}</div>`:'';
+    eb.innerHTML=`
+      <div class="event-capa">${CAPA_LABELS[slotData.capa]||''}</div>
+      <div class="event-info">
+        ${slotData.descuento?`<strong>${slotData.descuento}</strong><br>`:''}
+        ${slotData.producto||''}${slotData.marca?` · <em>${slotData.marca}</em>`:''}
+      </div>${canalesHTML}`;
+    const cpBtn=document.createElement('button');
+    cpBtn.className='event-copy-btn';
+    cpBtn.textContent='📋 Copiar';
+    cpBtn.onclick=(e)=>copySlot(col,h,e);
+    eb.appendChild(cpBtn);
+    cell.appendChild(eb);
+  } else {
+    const add=document.createElement('div');
+    add.className='event-add';
+    add.textContent='+';
+    cell.appendChild(add);
+  }
+  return cell;
+}
+
+// ── RENDER (main) ──
+function render(){
+  renderHeader();
+  if(curView==='horas') renderHoras();
+  else renderFranjas();
+}
+
+// ── PANEL ──
+function openPanel(col,hour,dayObj){
+  if(!editMode) return;
+  if(copyMode&&copyBuffer){pasteSlot(col,hour);return;}
+  curSlot={col,hour};
+  const p=PARTIDOS[curPartido];
+  const d=dayObj||p.week.find(w=>w.col===col)||{};
+  const lbl=(d.matchDay?'⚽ ':'')+d.day+' '+d.date;
+  document.getElementById('panel-title').textContent=lbl+' · '+hour.toString().padStart(2,'0')+':00';
+  document.getElementById('panel-meta').innerHTML=`<strong>Partido:</strong> ${p.label}<br><strong>Día:</strong> ${lbl}${d.matchDay?' — DÍA DEL PARTIDO':''}<br><strong>Hora:</strong> ${hour.toString().padStart(2,'0')}:00 – ${(hour+1).toString().padStart(2,'0')}:00`;
+  const sd=data[curPartido][col][hour];
+  document.getElementById('f-desc').value=sd?.descuento||'';
+  document.getElementById('f-prod').value=sd?.producto||'';
+  document.getElementById('f-marca').value=sd?.marca||'';
+  document.getElementById('f-copy').value=sd?.copy||'';
+  document.querySelectorAll('.canal-tag').forEach(t=>t.classList.remove('on'));
+  if(sd?.canales) sd.canales.forEach(c=>{const t=document.querySelector(`.canal-tag[data-canal="${c}"]`);if(t)t.classList.add('on');});
   document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));
-  currentCapa = slotData?.capa||null;
-  if(currentCapa){
-    const opt = document.querySelector('.capa-opt.'+currentCapa);
-    if(opt) opt.classList.add('selected');
-  }
-
+  curCapa=sd?.capa||null;
+  if(curCapa){const o=document.querySelector('.capa-opt.'+curCapa);if(o)o.classList.add('selected');}
   document.getElementById('cal-panel').classList.add('open');
 }
-
-function closePanel(){
-  document.getElementById('cal-panel').classList.remove('open');
-  currentSlot=null;
-}
-
-function selectCapa(capa, el){
-  document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  currentCapa = capa;
-}
-
-function toggleCanal(el){ el.classList.toggle('on'); }
-
+function closePanel(){document.getElementById('cal-panel').classList.remove('open');curSlot=null;}
+function selCapa(c,el){document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');curCapa=c;}
+function togCanal(el){el.classList.toggle('on');}
 function saveSlot(){
-  if(!currentSlot) return;
-  const {col,hour} = currentSlot;
-  const canales = [];
+  if(!curSlot)return;
+  const canales=[];
   document.querySelectorAll('.canal-tag.on').forEach(t=>canales.push(t.dataset.canal));
-  data[currentPartido][col][hour] = {
-    capa: currentCapa,
-    descuento: document.getElementById('f-descuento').value.trim(),
-    producto: document.getElementById('f-producto').value.trim(),
-    marca: document.getElementById('f-marca').value.trim(),
-    copy: document.getElementById('f-copy').value.trim(),
+  data[curPartido][curSlot.col][curSlot.hour]={
+    capa:curCapa,
+    descuento:document.getElementById('f-desc').value.trim(),
+    producto:document.getElementById('f-prod').value.trim(),
+    marca:document.getElementById('f-marca').value.trim(),
+    copy:document.getElementById('f-copy').value.trim(),
     canales
   };
-  renderCalendar();
+  render();
 }
-
 function clearSlot(){
-  if(!currentSlot) return;
-  const {col,hour} = currentSlot;
-  data[currentPartido][col][hour] = null;
-  document.getElementById('f-descuento').value='';
-  document.getElementById('f-producto').value='';
-  document.getElementById('f-marca').value='';
-  document.getElementById('f-copy').value='';
+  if(!curSlot)return;
+  data[curPartido][curSlot.col][curSlot.hour]=null;
+  ['f-desc','f-prod','f-marca','f-copy'].forEach(id=>document.getElementById(id).value='');
   document.querySelectorAll('.canal-tag').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));
-  currentCapa=null;
-  renderCalendar();
+  curCapa=null;
+  render();
 }
 
+// ── COPY/PASTE ──
+function copySlot(col,hour,e){
+  e.stopPropagation();
+  const sd=data[curPartido][col][hour];
+  if(!sd)return;
+  copyBuffer={data:JSON.parse(JSON.stringify(sd)),sourceCol:col,sourceHour:hour};
+  copyMode=true;
+  const parts=[CAPA_LABELS[sd.capa]||'',sd.descuento||'',sd.producto||'',sd.marca||''].filter(Boolean);
+  document.getElementById('copy-label').textContent=parts.join(' · ');
+  document.getElementById('copy-banner').classList.add('active');
+  render();
+}
+function pasteSlot(col,hour){
+  if(!copyBuffer)return;
+  data[curPartido][col][hour]=JSON.parse(JSON.stringify(copyBuffer.data));
+  render();
+}
+function cancelCopy(){
+  copyMode=false;copyBuffer=null;
+  document.getElementById('copy-banner').classList.remove('active');
+  render();
+}
+
+// ── TAB ──
 function switchTab(name,el){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -712,116 +806,20 @@ function switchTab(name,el){
   el.classList.add('active');
 }
 
-function copySlot(col, hour, e){
-  e.stopPropagation();
-  const slotData = data[currentPartido][col][hour];
-  if(!slotData) return;
-  copyBuffer = {data: JSON.parse(JSON.stringify(slotData)), sourceCol: col, sourceHour: hour};
-  copyMode = true;
-  const capaLabels={cashback:'D-1 Cashback',morning:'Morning Rush',bigame:'Big Game',recovery:'Recovery'};
-  const parts = [capaLabels[slotData.capa]||'', slotData.descuento||'', slotData.producto||'', slotData.marca||''].filter(Boolean);
-  document.getElementById('copy-banner-label').textContent = parts.join(' · ');
-  document.getElementById('copy-banner').classList.add('active');
-  renderCalendar();
-}
-
-function pasteSlot(col, hour){
-  if(!copyBuffer) return;
-  data[currentPartido][col][hour] = JSON.parse(JSON.stringify(copyBuffer.data));
-  renderCalendar();
-}
-
-function cancelCopy(){
-  copyMode = false;
-  copyBuffer = null;
-  document.getElementById('copy-banner').classList.remove('active');
-  renderCalendar();
-}
-
-
-// ── LOCK SYSTEM ──
-const EDIT_PASSWORD = 'admin123';
-let editMode = false;
-
-function activateReadOnly(){
-  editMode = false;
-  document.body.classList.add('read-only');
-  document.getElementById('mode-badge').className = 'mode-badge locked';
-  document.getElementById('mode-badge').textContent = '🔒 Solo lectura';
-  document.getElementById('export-btn').style.display = 'none';
-  if(copyMode) cancelCopy();
-}
-
-function activateEditMode(){
-  editMode = true;
-  document.body.classList.remove('read-only');
-  document.getElementById('mode-badge').className = 'mode-badge editing';
-  document.getElementById('mode-badge').textContent = '✏️ Modo edición';
-  document.getElementById('export-btn').style.display = 'block';
-}
-
-function openLockModal(){
-  document.getElementById('lock-overlay').classList.add('active');
-  document.getElementById('lock-input').value = '';
-  document.getElementById('lock-error').textContent = '';
-  document.getElementById('lock-input').classList.remove('error');
-  setTimeout(()=>document.getElementById('lock-input').focus(), 100);
-}
-
-function closeLockModal(){
-  document.getElementById('lock-overlay').classList.remove('active');
-}
-
-function checkPassword(){
-  const val = document.getElementById('lock-input').value;
-  if(val === EDIT_PASSWORD){
-    closeLockModal();
-    activateEditMode();
-  } else {
-    document.getElementById('lock-error').textContent = 'Clave incorrecta. Intenta de nuevo.';
-    document.getElementById('lock-input').classList.add('error');
-    document.getElementById('lock-input').value = '';
-    setTimeout(()=>document.getElementById('lock-input').classList.remove('error'), 400);
-  }
-}
-
-// Keyboard shortcut Ctrl+Shift+E
-document.addEventListener('keydown', (e)=>{
-  if(e.ctrlKey && e.shiftKey && e.key === 'E'){
-    e.preventDefault();
-    if(editMode){ activateReadOnly(); }
-    else { openLockModal(); }
-  }
-  if(e.key === 'Escape') closeLockModal();
-});
-
-// Block openPanel in read-only
-const _origOpenPanel = openPanel;
-openPanel = function(col, hour){
-  if(!editMode) return;
-  _origOpenPanel(col, hour);
-};
-
-// Init as read-only
-activateReadOnly();
-
+// ── EXPORT ──
 function exportHTML(){
-  // Embed data into the HTML before export
-  const script = `<script>window.__DATA__=${JSON.stringify(data)};<\/script>`;
-  let html = document.documentElement.outerHTML;
-  html = html.replace('</body>', script+'</body>');
-  const blob = new Blob(['<!DOCTYPE html>'+html],{type:'text/html'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'rappi_strike_plan_mundial2026.html';
+  const script=`<script>window.__DATA__=${JSON.stringify(data)};<\/script>`;
+  let html=document.documentElement.outerHTML;
+  html=html.replace('</body>',script+'</body>');
+  const blob=new Blob(['<!DOCTYPE html>'+html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='rappi_strike_plan_mundial2026.html';
   a.click();
 }
 
-// Load embedded data if present
-if(window.__DATA__){ data = window.__DATA__; }
-
-// Init
-renderCalendar();
+if(window.__DATA__){data=window.__DATA__;}
+render();
 </script>
 </body>
 </html>
