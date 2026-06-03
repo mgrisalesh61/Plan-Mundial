@@ -6,128 +6,174 @@
 <title>Strike Plan · Turbo MX · Mundial 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --orange: #FF441F;
-    --orange-light: #FF6B40;
-    --orange-dim: rgba(255,68,31,0.15);
-    --green: #00D084;
-    --green-dim: rgba(0,208,132,0.15);
-    --yellow: #FFB800;
-    --yellow-dim: rgba(255,184,0,0.15);
-    --purple: #9B6DFF;
-    --purple-dim: rgba(155,109,255,0.15);
-    --blue: #4DA6FF;
-    --blue-dim: rgba(77,166,255,0.12);
-    --bg: #0D0F14;
-    --bg2: #13161E;
-    --bg3: #1A1E28;
-    --bg4: #222738;
-    --border: rgba(255,255,255,0.07);
-    --text: #F0F2F8;
-    --text-muted: #6B7494;
-    --text-dim: #3A3F56;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
-  header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
-  .header-left { display:flex; align-items:center; gap:16px; }
-  .logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 2px; color: var(--orange); }
-  .logo span { color: var(--text); }
-  .header-badge { background: var(--orange-dim); border: 1px solid var(--orange); color: var(--orange); font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; }
-  .export-btn { background: var(--orange); color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-family: var(--font-body); font-weight: 700; font-size: 13px; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; }
-  .export-btn:hover { background: var(--orange-light); }
-  .tabs-bar { display: flex; gap: 4px; padding: 0 32px; background: var(--bg2); border-bottom: 1px solid var(--border); }
-  .tab { padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.3px; white-space: nowrap; }
-  .tab:hover { color: var(--text); }
-  .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
-  .main { padding: 32px; max-width: 1400px; margin: 0 auto; }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-  .filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 28px; flex-wrap: wrap; }
-  .filter-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
-  .filter-btn { background: var(--bg3); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-  .filter-btn:hover, .filter-btn.active { background: var(--orange-dim); border-color: var(--orange); color: var(--orange); }
-  .partido-block { margin-bottom: 40px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg2); }
-  .partido-header { display: flex; align-items: center; gap: 20px; padding: 20px 28px; background: var(--bg3); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-  .partido-num { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 2px; }
-  .partido-title { font-family: var(--font-display); font-size: 28px; letter-spacing: 2px; color: var(--text); flex: 1; }
-  .partido-title span { color: var(--orange); }
-  .partido-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .meta-pill { background: var(--bg4); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
-  .meta-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
-  .kickoff-pill { background: var(--orange-dim); border: 1px solid var(--orange); color: var(--orange); font-weight: 700; }
-  .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-  .capa-col { border-right: 1px solid var(--border); padding: 0; }
-  .capa-col:last-child { border-right: none; }
-  .capa-header { padding: 16px 20px 14px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
-  .capa-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .capa-prematch .capa-header::before { background: var(--yellow); }
-  .capa-morning .capa-header::before { background: var(--orange); }
-  .capa-bigame .capa-header::before { background: var(--purple); }
-  .capa-recovery .capa-header::before { background: var(--blue); }
-  .capa-icon { font-size: 20px; margin-bottom: 6px; }
-  .capa-name { font-family: var(--font-display); font-size: 16px; letter-spacing: 2px; margin-bottom: 2px; }
-  .capa-prematch .capa-name { color: var(--yellow); }
-  .capa-morning .capa-name { color: var(--orange); }
-  .capa-bigame .capa-name { color: var(--purple); }
-  .capa-recovery .capa-name { color: var(--blue); }
-  .capa-timing { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
-  .capa-mecanica { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; padding: 3px 8px; border-radius: 4px; display: inline-block; }
-  .capa-prematch .capa-mecanica { background: var(--yellow-dim); color: var(--yellow); }
-  .capa-morning .capa-mecanica { background: var(--orange-dim); color: var(--orange); }
-  .capa-bigame .capa-mecanica { background: var(--purple-dim); color: var(--purple); }
-  .capa-recovery .capa-mecanica { background: var(--blue-dim); color: var(--blue); }
-  .capa-body { padding: 16px 20px; }
-  .canal-group { margin-bottom: 14px; }
-  .canal-group-title { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
-  .canal-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--bg4); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--text-muted); margin: 2px 2px 2px 0; cursor: pointer; transition: all 0.15s; }
-  .canal-tag:hover { border-color: var(--text-muted); color: var(--text); }
-  .canal-tag.active-canal { border-color: var(--green); color: var(--green); background: var(--green-dim); }
-  .field-block { margin-bottom: 12px; }
-  .field-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; }
-  .field-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-family: var(--font-body); font-size: 12px; color: var(--text); outline: none; transition: border-color 0.15s; resize: none; }
-  .field-input::placeholder { color: var(--text-dim); }
-  .field-input:focus { border-color: var(--orange); }
-  .field-input.copy-field { min-height: 60px; }
-  .deadlines-intro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-  .deadline-rule-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-  .rule-step { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; }
-  .rule-title { font-family: var(--font-display); font-size: 18px; letter-spacing: 1px; margin-bottom: 4px; }
-  .rule-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-  .deadline-partido { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
-  .deadline-partido-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: var(--bg3); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
-  .deadline-partido-name { font-family: var(--font-display); font-size: 20px; letter-spacing: 2px; }
-  .deadline-partido-name span { color: var(--orange); }
-  .deadline-table { width: 100%; border-collapse: collapse; }
-  .deadline-table th { padding: 10px 24px; text-align: left; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); background: var(--bg3); border-bottom: 1px solid var(--border); }
-  .deadline-table td { padding: 12px 24px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-  .deadline-table tr:last-child td { border-bottom: none; }
-  .deadline-table tr:hover td { background: var(--bg3); }
-  .dl-who { font-weight: 700; font-size: 12px; }
-  .dl-who.comercial { color: var(--yellow); }
-  .dl-who.produccion { color: var(--purple); }
-  .dl-who.coordinador { color: var(--orange); }
-  .dl-who.plataforma { color: var(--green); }
-  .dl-date { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
-  .dl-date.urgent { color: var(--orange); }
-  .dl-date.done { color: var(--text-muted); text-decoration: line-through; }
-  .dl-date.ok { color: var(--text); }
-  .dl-badge { padding: 3px 10px; border-radius: 100px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
-  .dl-badge.vencido { background: rgba(255,68,31,0.2); color: var(--orange); border: 1px solid var(--orange); }
-  .dl-badge.hoy { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
-  .dl-badge.proximo { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
-  .ejecucion-row td { opacity: 0.7; }
-  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .divider { height: 1px; background: var(--border); margin: 12px 0; }
-  @media (max-width: 900px) { .timeline-grid { grid-template-columns: 1fr 1fr; } .deadlines-intro { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) { .timeline-grid { grid-template-columns: 1fr; } .main { padding: 16px; } header { padding: 0 16px; } .tabs-bar { padding: 0 16px; overflow-x: auto; } }
+:root {
+  --orange:#FF441F; --orange-light:#FF6B40; --orange-dim:rgba(255,68,31,0.15);
+  --green:#00D084; --green-dim:rgba(0,208,132,0.15);
+  --yellow:#FFB800; --yellow-dim:rgba(255,184,0,0.18);
+  --purple:#9B6DFF; --purple-dim:rgba(155,109,255,0.18);
+  --blue:#4DA6FF; --blue-dim:rgba(77,166,255,0.15);
+  --bg:#0D0F14; --bg2:#13161E; --bg3:#1A1E28; --bg4:#222738;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
+  --text:#F0F2F8; --text-muted:#6B7494; --text-dim:#3A3F56;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
+
+/* HEADER */
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:200;}
+.logo{font-family:var(--font-display);font-size:20px;letter-spacing:2px;color:var(--orange);}
+.logo span{color:var(--text);}
+.header-left{display:flex;align-items:center;gap:14px;}
+.header-badge{background:var(--orange-dim);border:1px solid var(--orange);color:var(--orange);font-size:10px;font-weight:700;letter-spacing:2px;padding:3px 10px;border-radius:100px;}
+.export-btn{background:var(--orange);color:#fff;border:none;padding:7px 18px;border-radius:7px;font-family:var(--font-body);font-weight:700;font-size:12px;cursor:pointer;transition:background 0.2s;}
+.export-btn:hover{background:var(--orange-light);}
+
+/* TABS */
+.tabs-bar{display:flex;gap:4px;padding:0 28px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.tab{padding:13px 22px;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--orange);border-bottom-color:var(--orange);}
+
+/* MAIN */
+.main{padding:24px 28px;max-width:1500px;margin:0 auto;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* PARTIDO SELECTOR */
+.partido-selector{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+.partido-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text-muted);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:left;}
+.partido-btn:hover{border-color:var(--border2);color:var(--text);}
+.partido-btn.active{background:var(--orange-dim);border-color:var(--orange);color:var(--orange);}
+.partido-btn .pb-date{font-family:var(--font-mono);font-size:10px;display:block;margin-bottom:3px;opacity:0.7;}
+.partido-btn .pb-name{font-family:var(--font-display);font-size:15px;letter-spacing:1px;display:block;}
+.partido-btn .pb-stadium{font-size:10px;opacity:0.6;display:block;margin-top:2px;}
+
+/* CALENDAR LAYOUT */
+.cal-wrapper{display:flex;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);}
+.cal-main{flex:1;overflow:hidden;}
+.cal-panel{width:320px;border-left:1px solid var(--border);background:var(--bg3);display:none;flex-direction:column;}
+.cal-panel.open{display:flex;}
+
+/* CALENDAR HEADER ROW */
+.cal-header{display:grid;grid-template-columns:64px repeat(3,1fr);border-bottom:1px solid var(--border);background:var(--bg3);}
+.cal-header-time{padding:14px 10px;font-family:var(--font-mono);font-size:9px;color:var(--text-dim);letter-spacing:1px;}
+.cal-header-day{padding:14px 16px;border-left:1px solid var(--border);}
+.cal-header-day .day-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+.cal-header-day .day-date{font-family:var(--font-display);font-size:17px;letter-spacing:1px;color:var(--text);}
+.cal-header-day .day-name{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.cal-header-day.match-day .day-date{color:var(--orange);}
+.cal-header-day.match-day .day-label{color:var(--orange);}
+
+/* CALENDAR GRID */
+.cal-grid{overflow-y:auto;max-height:calc(100vh - 220px);}
+.cal-row{display:grid;grid-template-columns:64px repeat(3,1fr);border-bottom:1px solid var(--border);min-height:56px;}
+.cal-row:last-child{border-bottom:none;}
+.cal-time{padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:1px;display:flex;align-items:flex-start;padding-top:10px;border-right:1px solid var(--border);}
+.cal-cell{border-left:1px solid var(--border);padding:4px;position:relative;cursor:pointer;transition:background 0.15s;min-height:56px;}
+.cal-cell:hover{background:rgba(255,255,255,0.02);}
+.cal-cell.has-event{cursor:pointer;}
+
+/* EVENT BLOCKS */
+.event-block{border-radius:6px;padding:6px 8px;height:100%;min-height:48px;position:relative;border:1px solid transparent;}
+.event-block.cashback{background:var(--yellow-dim);border-color:rgba(255,184,0,0.3);}
+.event-block.morning{background:var(--orange-dim);border-color:rgba(255,68,31,0.3);}
+.event-block.bigame{background:var(--purple-dim);border-color:rgba(155,109,255,0.3);}
+.event-block.recovery{background:var(--blue-dim);border-color:rgba(77,166,255,0.3);}
+.event-block.kickoff{background:rgba(255,68,31,0.25);border-color:var(--orange);border-width:2px;}
+
+.event-capa{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.event-block.cashback .event-capa{color:var(--yellow);}
+.event-block.morning .event-capa{color:var(--orange);}
+.event-block.bigame .event-capa{color:var(--purple);}
+.event-block.recovery .event-capa{color:var(--blue);}
+.event-block.kickoff .event-capa{color:var(--orange);}
+
+.event-info{font-size:10px;color:var(--text-muted);line-height:1.4;}
+.event-info strong{color:var(--text);font-weight:600;}
+.event-add{display:flex;align-items:center;justify-content:center;height:100%;min-height:48px;color:var(--text-dim);font-size:18px;opacity:0;}
+.cal-cell:hover .event-add{opacity:1;}
+
+/* KICKOFF MARKER */
+.kickoff-marker{background:var(--orange);color:#fff;font-family:var(--font-display);font-size:12px;letter-spacing:1px;padding:4px 8px;border-radius:5px;display:flex;align-items:center;gap:5px;}
+
+/* PANEL */
+.panel-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-family:var(--font-display);font-size:16px;letter-spacing:1px;}
+.panel-close{background:var(--bg4);border:none;color:var(--text-muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.panel-close:hover{color:var(--text);}
+.panel-body{padding:16px 20px;overflow-y:auto;flex:1;}
+.panel-meta{background:var(--bg4);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted);line-height:1.6;}
+.panel-meta strong{color:var(--text);}
+
+.panel-capa-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.capa-opt{padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all 0.15s;letter-spacing:0.5px;}
+.capa-opt.cashback{background:var(--yellow-dim);color:var(--yellow);border-color:rgba(255,184,0,0.3);}
+.capa-opt.morning{background:var(--orange-dim);color:var(--orange);border-color:rgba(255,68,31,0.3);}
+.capa-opt.bigame{background:var(--purple-dim);color:var(--purple);border-color:rgba(155,109,255,0.3);}
+.capa-opt.recovery{background:var(--blue-dim);color:var(--blue);border-color:rgba(77,166,255,0.3);}
+.capa-opt.selected{outline:2px solid currentColor;outline-offset:1px;}
+
+.field-block{margin-bottom:13px;}
+.field-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
+.field-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:var(--font-body);font-size:12px;color:var(--text);outline:none;transition:border-color 0.15s;resize:none;}
+.field-input::placeholder{color:var(--text-dim);}
+.field-input:focus{border-color:var(--orange);}
+.field-textarea{min-height:64px;}
+
+.canal-group{margin-bottom:10px;}
+.canal-group-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
+.canal-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.canal-tag{display:inline-flex;align-items:center;background:var(--bg4);border:1px solid var(--border);padding:3px 8px;border-radius:4px;font-size:10px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.15s;}
+.canal-tag:hover{border-color:var(--border2);color:var(--text);}
+.canal-tag.on{border-color:var(--green);color:var(--green);background:var(--green-dim);}
+
+.panel-actions{display:flex;gap:8px;margin-top:16px;}
+.btn-save{flex:1;background:var(--orange);color:#fff;border:none;padding:10px;border-radius:7px;font-family:var(--font-body);font-weight:700;font-size:13px;cursor:pointer;transition:background 0.2s;}
+.btn-save:hover{background:var(--orange-light);}
+.btn-clear{background:var(--bg4);color:var(--text-muted);border:1px solid var(--border);padding:10px 14px;border-radius:7px;font-family:var(--font-body);font-weight:600;font-size:12px;cursor:pointer;}
+.btn-clear:hover{color:var(--orange);border-color:var(--orange);}
+
+/* REGLAS */
+.deadlines-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.deadline-rule-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.rule-step{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-muted);margin-bottom:6px;}
+.rule-title{font-family:var(--font-display);font-size:17px;letter-spacing:1px;margin-bottom:4px;}
+.rule-desc{font-size:12px;color:var(--text-muted);line-height:1.5;}
+.deadline-partido{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:18px;}
+.deadline-partido-header{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;}
+.deadline-partido-name{font-family:var(--font-display);font-size:19px;letter-spacing:2px;}
+.deadline-partido-name span{color:var(--orange);}
+.deadline-table{width:100%;border-collapse:collapse;}
+.deadline-table th{padding:9px 22px;text-align:left;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);background:var(--bg3);border-bottom:1px solid var(--border);}
+.deadline-table td{padding:11px 22px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.deadline-table tr:last-child td{border-bottom:none;}
+.deadline-table tr:hover td{background:var(--bg3);}
+.dl-who{font-weight:700;font-size:11px;}
+.dl-who.comercial{color:var(--yellow);}
+.dl-who.produccion{color:var(--purple);}
+.dl-who.coordinador{color:var(--orange);}
+.dl-who.plataforma{color:var(--green);}
+.dl-date{font-family:var(--font-mono);font-size:11px;font-weight:600;}
+.dl-date.done{color:var(--text-muted);text-decoration:line-through;}
+.dl-date.urgent{color:var(--orange);}
+.dl-date.ok{color:var(--text);}
+.dl-badge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:1px;}
+.dl-badge.vencido{background:rgba(255,68,31,0.2);color:var(--orange);border:1px solid var(--orange);}
+.dl-badge.hoy{background:var(--yellow-dim);color:var(--yellow);border:1px solid var(--yellow);}
+.dl-badge.proximo{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+.ejecucion-row td{opacity:0.65;}
+.meta-pill{background:var(--bg4);border:1px solid var(--border);padding:4px 10px;border-radius:7px;font-size:11px;font-weight:600;color:var(--text-muted);display:inline-flex;align-items:center;gap:5px;}
+.kickoff-pill{background:var(--orange-dim);border:1px solid var(--orange);color:var(--orange);font-weight:700;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+@media(max-width:900px){.deadlines-intro{grid-template-columns:1fr;}.cal-panel{width:100%;border-left:none;border-top:1px solid var(--border);}}
 </style>
 </head>
 <body>
+
 <header>
   <div class="header-left">
     <div class="logo">RAPPI <span>TURBO</span></div>
@@ -135,243 +181,133 @@
   </div>
   <button class="export-btn" onclick="exportHTML()">⬇ Exportar HTML</button>
 </header>
+
 <div class="tabs-bar">
   <div class="tab active" onclick="switchTab('minuto',this)">⏱ Minuto a Minuto</div>
   <div class="tab" onclick="switchTab('reglas',this)">📋 Reglas de Juego</div>
 </div>
+
 <div class="main">
+
+<!-- ══ TAB 1 ══ -->
 <div id="tab-minuto" class="tab-content active">
-  <div class="filter-bar">
-    <span class="filter-label">Partido</span>
-    <button class="filter-btn active" onclick="filterPartido('all',this)">Todos</button>
-    <button class="filter-btn" onclick="filterPartido('p1',this)">🇲🇽 vs Sudáfrica</button>
-    <button class="filter-btn" onclick="filterPartido('p2',this)">🇲🇽 vs Corea del Sur</button>
-    <button class="filter-btn" onclick="filterPartido('p3',this)">🇲🇽 vs Chequia</button>
-    <span class="filter-label" style="margin-left:12px;">Capa</span>
-    <button class="filter-btn" onclick="filterCapa('cashback',this)">🪙 D-1 Cashback</button>
-    <button class="filter-btn" onclick="filterCapa('morning',this)">🔥 Morning Rush</button>
-    <button class="filter-btn" onclick="filterCapa('bigame',this)">🎯 Big Game</button>
-    <button class="filter-btn" onclick="filterCapa('recovery',this)">🚀 Recovery</button>
-  </div>
-<!-- PARTIDO 1 -->
-  <div class="partido-block" data-partido="p1">
-    <div class="partido-header">
-      <div class="partido-num">PARTIDO 01 / 03</div>
-      <div class="partido-title">MÉXICO <span>vs</span> SUDÁFRICA</div>
-      <div class="partido-meta">
-        <div class="meta-pill"><span class="dot"></span>Estadio Azteca · CDMX</div>
-        <div class="meta-pill kickoff-pill">⚽ KICKOFF 15:00 HRS</div>
-        <div class="meta-pill">📅 Jue 11 Jun 2026</div>
-      </div>
-    </div>
-    <div class="timeline-grid">
-      <div class="capa-col capa-prematch" data-capa="cashback">
-        <div class="capa-header"><div class="capa-icon">🪙</div><div class="capa-name">D-1 CASHBACK</div><div class="capa-timing">MIÉ 10 JUN · PUSH 17:00 Y 21:00</div><div class="capa-mecanica">PRE-MATCH</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. $100 Cashback · min $400"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Cerveza latón 355ml"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Modelo / Heineken"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. Mañana juega México 🇲🇽 Pide hoy y recibe $100 de vuelta."></textarea></div>
-        </div>
-      </div>
-      <div class="capa-col capa-morning" data-capa="morning">
-        <div class="capa-header"><div class="capa-icon">🔥</div><div class="capa-name">MORNING RUSH</div><div class="capa-timing">JUE 11 JUN · 08:00 – 13:00 HRS</div><div class="capa-mecanica">HAPPY HOUR TURBO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. 50% OFF · Cervezas"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. 6-pack · latón 355ml"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Modelo / Corona / Tecate"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. ⚡ Hora Loca Turbo: 50% en cervezas. Solo hasta la 1pm."></textarea></div>
-        </div>
-      </div>
-      <div class="capa-col capa-bigame" data-capa="bigame">
-        <div class="capa-header"><div class="capa-icon">🎯</div><div class="capa-name">BIG GAME</div><div class="capa-timing">JUE 11 JUN · 13:00 – 00:00 HRS</div><div class="capa-mecanica">DURANTE EL PARTIDO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. Pague 2 lleve 3"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Botanas / Cerveza"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Sabritas / Doritos / Modelo"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. ⚽ Arranca el partido! Lleva 3, paga 2 en botanas y cervezas."></textarea></div>
-        </div>
-      </div>
-      <div class="capa-col capa-recovery" data-capa="recovery">
-        <div class="capa-header"><div class="capa-icon">🚀</div><div class="capa-name">RECOVERY</div><div class="capa-timing">JUE 11 NOCHE · VIE 12 JUN</div><div class="capa-mecanica">POST-PARTIDO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. 30% OFF · Digestivos"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Pepto / Electrolit / Takis"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Bayer / Electrolit"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. Mexico gano! Ya se te paso la peda? Te traemos lo que necesitas en menos de 10 min."></textarea></div>
-        </div>
-      </div>
-    </div>
+
+  <div class="partido-selector">
+    <button class="partido-btn active" onclick="selectPartido(0,this)">
+      <span class="pb-date">JUE 11 JUN 2026</span>
+      <span class="pb-name">🇲🇽 MX vs Sudáfrica</span>
+      <span class="pb-stadium">Estadio Azteca · CDMX · 15:00</span>
+    </button>
+    <button class="partido-btn" onclick="selectPartido(1,this)">
+      <span class="pb-date">JUE 18 JUN 2026</span>
+      <span class="pb-name">🇲🇽 MX vs Corea del Sur</span>
+      <span class="pb-stadium">Estadio Akron · GDL · 19:00</span>
+    </button>
+    <button class="partido-btn" onclick="selectPartido(2,this)">
+      <span class="pb-date">MIÉ 24 JUN 2026</span>
+      <span class="pb-name">🇲🇽 Chequia vs MX</span>
+      <span class="pb-stadium">Estadio Azteca · CDMX · 21:00</span>
+    </button>
   </div>
 
-  <!-- PARTIDO 2 -->
-  <div class="partido-block" data-partido="p2">
-    <div class="partido-header">
-      <div class="partido-num">PARTIDO 02 / 03</div>
-      <div class="partido-title">MÉXICO <span>vs</span> COREA DEL SUR</div>
-      <div class="partido-meta">
-        <div class="meta-pill"><span class="dot"></span>Estadio Akron · Guadalajara</div>
-        <div class="meta-pill kickoff-pill">⚽ KICKOFF 19:00 HRS</div>
-        <div class="meta-pill">📅 Jue 18 Jun 2026</div>
-      </div>
+  <div class="cal-wrapper">
+    <div class="cal-main">
+      <div class="cal-header" id="cal-header"></div>
+      <div class="cal-grid" id="cal-grid"></div>
     </div>
-    <div class="timeline-grid">
-      <div class="capa-col capa-prematch" data-capa="cashback">
-        <div class="capa-header"><div class="capa-icon">🪙</div><div class="capa-name">D-1 CASHBACK</div><div class="capa-timing">MIÉ 17 JUN · PUSH 17:00 Y 21:00</div><div class="capa-mecanica">PRE-MATCH</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. $100 Cashback · min $400"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Cerveza latón 355ml"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Modelo / Heineken"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. Mañana juega México 🇲🇽 Pide hoy y recibe $100 de vuelta."></textarea></div>
-        </div>
+    <div class="cal-panel" id="cal-panel">
+      <div class="panel-header">
+        <div class="panel-title" id="panel-title">Editar comunicación</div>
+        <button class="panel-close" onclick="closePanel()">✕</button>
       </div>
-      <div class="capa-col capa-morning" data-capa="morning">
-        <div class="capa-header"><div class="capa-icon">🔥</div><div class="capa-name">MORNING RUSH</div><div class="capa-timing">JUE 18 JUN · 08:00 – 13:00 HRS</div><div class="capa-mecanica">HAPPY HOUR TURBO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. 50% OFF · Cervezas"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. 6-pack · latón 355ml"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Modelo / Corona / Tecate"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. ⚡ Hora Loca Turbo: 50% en cervezas. Solo hasta la 1pm."></textarea></div>
-        </div>
-      </div>
-      <div class="capa-col capa-bigame" data-capa="bigame">
-        <div class="capa-header"><div class="capa-icon">🎯</div><div class="capa-name">BIG GAME</div><div class="capa-timing">JUE 18 JUN · 17:00 – 00:00 HRS</div><div class="capa-mecanica">DURANTE EL PARTIDO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. Pague 2 lleve 3"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Botanas / Cerveza"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Sabritas / Doritos / Modelo"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. ⚽ Arranca el partido! Lleva 3, paga 2 en botanas y cervezas."></textarea></div>
-        </div>
-      </div>
-      <div class="capa-col capa-recovery" data-capa="recovery">
-        <div class="capa-header"><div class="capa-icon">🚀</div><div class="capa-name">RECOVERY</div><div class="capa-timing">JUE 18 NOCHE · VIE 19 JUN</div><div class="capa-mecanica">POST-PARTIDO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. 30% OFF · Digestivos"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Pepto / Electrolit / Takis"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Bayer / Electrolit"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. Mexico gano! Ya se te paso la peda? Te traemos lo que necesitas en menos de 10 min."></textarea></div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <div class="panel-body">
+        <div class="panel-meta" id="panel-meta"></div>
 
-  <!-- PARTIDO 3 -->
-  <div class="partido-block" data-partido="p3">
-    <div class="partido-header">
-      <div class="partido-num">PARTIDO 03 / 03</div>
-      <div class="partido-title">CHEQUIA <span>vs</span> MÉXICO</div>
-      <div class="partido-meta">
-        <div class="meta-pill"><span class="dot"></span>Estadio Azteca · CDMX</div>
-        <div class="meta-pill kickoff-pill">⚽ KICKOFF 21:00 HRS</div>
-        <div class="meta-pill">📅 Mié 24 Jun 2026</div>
-      </div>
-    </div>
-    <div class="timeline-grid">
-      <div class="capa-col capa-prematch" data-capa="cashback">
-        <div class="capa-header"><div class="capa-icon">🪙</div><div class="capa-name">D-1 CASHBACK</div><div class="capa-timing">MAR 23 JUN · PUSH 17:00 Y 21:00</div><div class="capa-mecanica">PRE-MATCH</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. $100 Cashback · min $400"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Cerveza latón 355ml"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Modelo / Heineken"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. Mañana juega México 🇲🇽 Pide hoy y recibe $100 de vuelta."></textarea></div>
+        <div class="field-block">
+          <div class="field-label">Capa</div>
+          <div class="panel-capa-selector">
+            <div class="capa-opt cashback" onclick="selectCapa('cashback',this)">🪙 D-1 Cashback</div>
+            <div class="capa-opt morning" onclick="selectCapa('morning',this)">🔥 Morning Rush</div>
+            <div class="capa-opt bigame" onclick="selectCapa('bigame',this)">🎯 Big Game</div>
+            <div class="capa-opt recovery" onclick="selectCapa('recovery',this)">🚀 Recovery</div>
+          </div>
         </div>
-      </div>
-      <div class="capa-col capa-morning" data-capa="morning">
-        <div class="capa-header"><div class="capa-icon">🔥</div><div class="capa-name">MORNING RUSH</div><div class="capa-timing">MIÉ 24 JUN · 08:00 – 13:00 HRS</div><div class="capa-mecanica">HAPPY HOUR TURBO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. 50% OFF · Cervezas"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. 6-pack · latón 355ml"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Modelo / Corona / Tecate"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. ⚡ Hora Loca Turbo: 50% en cervezas. Solo hasta la 1pm."></textarea></div>
+
+        <div class="field-block">
+          <div class="field-label">Descuento / Mecánica</div>
+          <input class="field-input" id="f-descuento" type="text" placeholder="ej. $100 Cashback · min $400 / 50% OFF / Pague 2 lleve 3">
         </div>
-      </div>
-      <div class="capa-col capa-bigame" data-capa="bigame">
-        <div class="capa-header"><div class="capa-icon">🎯</div><div class="capa-name">BIG GAME</div><div class="capa-timing">MIÉ 24 JUN · 19:00 – 00:00 HRS</div><div class="capa-mecanica">DURANTE EL PARTIDO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. Pague 2 lleve 3"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Botanas / Cerveza"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Sabritas / Doritos / Modelo"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. ⚽ Arranca el partido! Lleva 3, paga 2 en botanas y cervezas."></textarea></div>
+        <div class="field-block">
+          <div class="field-label">Producto</div>
+          <input class="field-input" id="f-producto" type="text" placeholder="ej. Cerveza latón 355ml / Botanas tamaño familiar">
         </div>
-      </div>
-      <div class="capa-col capa-recovery" data-capa="recovery">
-        <div class="capa-header"><div class="capa-icon">🚀</div><div class="capa-name">RECOVERY</div><div class="capa-timing">MIÉ 24 NOCHE · JUE 25 JUN</div><div class="capa-mecanica">POST-PARTIDO</div></div>
-        <div class="capa-body">
-          <div class="canal-group"><div class="canal-group-title">Fuera de App</div><span class="canal-tag" onclick="toggleCanal(this)">📲 Push</span><span class="canal-tag" onclick="toggleCanal(this)">💬 SMS</span><span class="canal-tag" onclick="toggleCanal(this)">📱 WhatsApp</span><span class="canal-tag" onclick="toggleCanal(this)">📧 Email</span></div>
-          <div class="canal-group"><div class="canal-group-title">InApp</div><span class="canal-tag" onclick="toggleCanal(this)">↑ Slide Up</span><span class="canal-tag" onclick="toggleCanal(this)">🏠 Splash Home</span><span class="canal-tag" onclick="toggleCanal(this)">🖼 Banner Home</span><span class="canal-tag" onclick="toggleCanal(this)">📐 Banner Vertical</span><span class="canal-tag" onclick="toggleCanal(this)">📍 InApp</span></div>
-          <div class="canal-group"><div class="canal-group-title">Redes</div><span class="canal-tag" onclick="toggleCanal(this)">📸 IG Story</span><span class="canal-tag" onclick="toggleCanal(this)">💰 Paid Media</span></div>
-          <div class="divider"></div>
-          <div class="field-block"><div class="field-label">Descuento / Mecánica</div><input class="field-input" type="text" placeholder="ej. 30% OFF · Digestivos"></div>
-          <div class="field-block"><div class="field-label">Producto</div><input class="field-input" type="text" placeholder="ej. Pepto / Electrolit / Takis"></div>
-          <div class="field-block"><div class="field-label">Marca</div><input class="field-input" type="text" placeholder="ej. Bayer / Electrolit"></div>
-          <div class="field-block"><div class="field-label">Copy (Push / WhatsApp)</div><textarea class="field-input copy-field" placeholder="ej. Mexico gano! Ya se te paso la peda? Te traemos lo que necesitas en menos de 10 min."></textarea></div>
+        <div class="field-block">
+          <div class="field-label">Marca</div>
+          <input class="field-input" id="f-marca" type="text" placeholder="ej. Modelo / Heineken / Sabritas">
+        </div>
+        <div class="field-block">
+          <div class="field-label">Copy del mensaje</div>
+          <textarea class="field-input field-textarea" id="f-copy" placeholder="ej. Mañana juega México 🇲🇽 Pide hoy y recibe $100 de vuelta."></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label" style="margin-bottom:8px;">Canales</div>
+          <div class="canal-group">
+            <div class="canal-group-label">Fuera de App</div>
+            <div class="canal-tags">
+              <span class="canal-tag" data-canal="push" onclick="toggleCanal(this)">📲 Push</span>
+              <span class="canal-tag" data-canal="sms" onclick="toggleCanal(this)">💬 SMS</span>
+              <span class="canal-tag" data-canal="whatsapp" onclick="toggleCanal(this)">📱 WhatsApp</span>
+              <span class="canal-tag" data-canal="email" onclick="toggleCanal(this)">📧 Email</span>
+            </div>
+          </div>
+          <div class="canal-group">
+            <div class="canal-group-label">InApp</div>
+            <div class="canal-tags">
+              <span class="canal-tag" data-canal="slideup" onclick="toggleCanal(this)">↑ Slide Up</span>
+              <span class="canal-tag" data-canal="splash" onclick="toggleCanal(this)">🏠 Splash Home</span>
+              <span class="canal-tag" data-canal="bannerhome" onclick="toggleCanal(this)">🖼 Banner Home</span>
+              <span class="canal-tag" data-canal="bannerv" onclick="toggleCanal(this)">📐 Banner Vertical</span>
+              <span class="canal-tag" data-canal="inapp" onclick="toggleCanal(this)">📍 InApp</span>
+            </div>
+          </div>
+          <div class="canal-group">
+            <div class="canal-group-label">Redes</div>
+            <div class="canal-tags">
+              <span class="canal-tag" data-canal="igstory" onclick="toggleCanal(this)">📸 IG Story</span>
+              <span class="canal-tag" data-canal="paid" onclick="toggleCanal(this)">💰 Paid Media</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-actions">
+          <button class="btn-save" onclick="saveSlot()">Guardar</button>
+          <button class="btn-clear" onclick="clearSlot()">Limpiar</button>
         </div>
       </div>
     </div>
   </div>
 
 </div>
+
+<!-- ══ TAB 2 ══ -->
 <div id="tab-reglas" class="tab-content">
   <div class="section-label">Cómo funciona el proceso</div>
   <div class="deadlines-intro">
     <div class="deadline-rule-card">
       <div class="rule-step">PASO 01</div>
       <div class="rule-title" style="color:var(--yellow)">📦 Comerciales</div>
-      <div class="rule-desc">Entregan deals confirmados con assets listos. Deadline: <strong>domingo</strong> de la semana anterior al partido.</div>
+      <div class="rule-desc">Entregan deals confirmados con assets. Deadline: <strong>domingo</strong> de la semana anterior al partido.</div>
     </div>
     <div class="deadline-rule-card">
       <div class="rule-step">PASO 02</div>
       <div class="rule-title" style="color:var(--purple)">🎨 Producción</div>
-      <div class="rule-desc">Arte recibe y produce las piezas. Deadline: <strong>lunes</strong> de la semana del partido. Máximo 2 días de producción.</div>
+      <div class="rule-desc">Arte produce las piezas. Deadline: <strong>lunes</strong> de la semana del partido. Máx. 2 días.</div>
     </div>
     <div class="deadline-rule-card">
       <div class="rule-step">PASO 03</div>
       <div class="rule-title" style="color:var(--orange)">⚙️ Programación</div>
-      <div class="rule-desc">Todo queda programado en plataforma. Deadline inamovible: <strong>miércoles</strong> de la semana del partido.</div>
+      <div class="rule-desc">Todo queda programado. Deadline inamovible: <strong>miércoles</strong> de la semana del partido.</div>
     </div>
   </div>
 
@@ -380,24 +316,24 @@
   <div class="deadline-partido">
     <div class="deadline-partido-header">
       <div>
-        <div style="font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:4px;">PARTIDO 01 · FASE DE GRUPOS</div>
+        <div style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 01 · GRUPO A</div>
         <div class="deadline-partido-name">MÉXICO <span>vs</span> SUDÁFRICA</div>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <div class="meta-pill kickoff-pill">⚽ Jue 11 Jun · 15:00 hrs · Azteca CDMX</div>
-        <div class="dl-badge vencido">⚠ SEMANA EN CURSO</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="meta-pill kickoff-pill">⚽ Jue 11 Jun · 15:00 · Azteca CDMX</span>
+        <span class="dl-badge vencido">⚠ SEMANA EN CURSO</span>
       </div>
     </div>
     <table class="deadline-table">
-      <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Día</th><th>Estado</th></tr></thead>
+      <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Referencia</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr><td>Deals confirmados + assets</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date done">Dom 31 May</span></td><td style="color:var(--text-muted);font-size:12px;">D-3 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
-        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date done">Lun 1 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">D-2 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
-        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador Trade Mktg</span></td><td><span class="dl-date urgent">Mié 3 Jun</span></td><td style="color:var(--yellow);font-size:12px;font-weight:700;">🔴 HOY</td><td><span class="dl-badge hoy">HOY</span></td></tr>
-        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · Push 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🎯 Big Game · 13:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 – Vie 12 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr><td>Deals + assets confirmados</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date done">Dom 31 May</span></td><td style="color:var(--text-muted);font-size:11px;">D-3 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
+        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date done">Lun 1 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-2 del miércoles</td><td><span class="dl-badge vencido">Vencido</span></td></tr>
+        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador</span></td><td><span class="dl-date urgent">Mié 3 Jun</span></td><td style="color:var(--yellow);font-size:11px;font-weight:700;">🔴 HOY</td><td><span class="dl-badge hoy">HOY</span></td></tr>
+        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🎯 Big Game · 13:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 11 – Vie 12 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -405,24 +341,24 @@
   <div class="deadline-partido">
     <div class="deadline-partido-header">
       <div>
-        <div style="font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:4px;">PARTIDO 02 · FASE DE GRUPOS</div>
+        <div style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 02 · GRUPO A</div>
         <div class="deadline-partido-name">MÉXICO <span>vs</span> COREA DEL SUR</div>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <div class="meta-pill kickoff-pill">⚽ Jue 18 Jun · 19:00 hrs · Akron GDL</div>
-        <div class="dl-badge proximo">Próximo</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="meta-pill kickoff-pill">⚽ Jue 18 Jun · 19:00 · Akron GDL</span>
+        <span class="dl-badge proximo">Próximo</span>
       </div>
     </div>
     <table class="deadline-table">
-      <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Día</th><th>Estado</th></tr></thead>
+      <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Referencia</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr><td>Deals confirmados + assets</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 7 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">D-3 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date ok">Lun 8 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">D-2 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador Trade Mktg</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Miércoles de cierre</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · Push 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🎯 Big Game · 17:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 – Vie 19 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr><td>Deals + assets confirmados</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 7 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-3 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
+        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date ok">Lun 8 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-2 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
+        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador</span></td><td><span class="dl-date ok">Mié 10 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Miércoles de cierre</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
+        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🎯 Big Game · 17:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Jue 18 – Vie 19 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -430,60 +366,254 @@
   <div class="deadline-partido">
     <div class="deadline-partido-header">
       <div>
-        <div style="font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:4px;">PARTIDO 03 · FASE DE GRUPOS</div>
+        <div style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:3px;">PARTIDO 03 · GRUPO A</div>
         <div class="deadline-partido-name">CHEQUIA <span>vs</span> MÉXICO</div>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <div class="meta-pill kickoff-pill">⚽ Mié 24 Jun · 21:00 hrs · Azteca CDMX</div>
-        <div class="dl-badge proximo">Próximo</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="meta-pill kickoff-pill">⚽ Mié 24 Jun · 21:00 · Azteca CDMX</span>
+        <span class="dl-badge proximo">Próximo</span>
       </div>
     </div>
     <table class="deadline-table">
-      <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Día</th><th>Estado</th></tr></thead>
+      <thead><tr><th>Entregable</th><th>Responsable</th><th>Fecha límite</th><th>Referencia</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr><td>Deals confirmados + assets</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 14 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">D-3 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date ok">Lun 15 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">D-2 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador Trade Mktg</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Miércoles de cierre</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
-        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · Push 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mar 23 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🎯 Big Game · 19:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
-        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 – Jue 25 Jun</span></td><td style="color:var(--text-muted);font-size:12px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr><td>Deals + assets confirmados</td><td><span class="dl-who comercial">Equipo Comercial</span></td><td><span class="dl-date ok">Dom 14 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-3 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
+        <tr><td>Piezas de arte listas</td><td><span class="dl-who produccion">Producción / Arte</span></td><td><span class="dl-date ok">Lun 15 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">D-2 del miércoles</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
+        <tr><td>Todo programado en plataforma</td><td><span class="dl-who coordinador">Coordinador</span></td><td><span class="dl-date ok">Mié 17 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Miércoles de cierre</td><td><span class="dl-badge proximo">Próximo</span></td></tr>
+        <tr class="ejecucion-row"><td>🪙 Cashback D-1 · 17:00 y 21:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mar 23 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🔥 Morning Rush · 08:00–13:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🎯 Big Game · 19:00–00:00</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
+        <tr class="ejecucion-row"><td>🚀 Recovery · noche + D+1</td><td><span class="dl-who plataforma">Plataforma</span></td><td><span class="dl-date ok">Mié 24 – Jue 25 Jun</span></td><td style="color:var(--text-muted);font-size:11px;">Ejecución automática</td><td><span class="dl-badge proximo">Programado</span></td></tr>
       </tbody>
     </table>
   </div>
+</div>
 
-</div>
-</div>
-</div>
+</div><!-- /main -->
 
 <script>
-function switchTab(name, el) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
+const PARTIDOS = [
+  {
+    id:'p0', label:'MX vs Sudáfrica',
+    d1:{date:'Mié 10 Jun', day:'MIÉ 10 JUN', label:'D-1 · PRE-MATCH'},
+    dm:{date:'Jue 11 Jun', day:'JUE 11 JUN', label:'DÍA DEL PARTIDO', kickoff:15},
+    d2:{date:'Vie 12 Jun', day:'VIE 12 JUN', label:'D+1 · RECOVERY'}
+  },
+  {
+    id:'p1', label:'MX vs Corea del Sur',
+    d1:{date:'Mié 17 Jun', day:'MIÉ 17 JUN', label:'D-1 · PRE-MATCH'},
+    dm:{date:'Jue 18 Jun', day:'JUE 18 JUN', label:'DÍA DEL PARTIDO', kickoff:19},
+    d2:{date:'Vie 19 Jun', day:'VIE 19 JUN', label:'D+1 · RECOVERY'}
+  },
+  {
+    id:'p2', label:'Chequia vs MX',
+    d1:{date:'Mar 23 Jun', day:'MAR 23 JUN', label:'D-1 · PRE-MATCH'},
+    dm:{date:'Mié 24 Jun', day:'MIÉ 24 JUN', label:'DÍA DEL PARTIDO', kickoff:21},
+    d2:{date:'Jue 25 Jun', day:'JUE 25 JUN', label:'D+1 · RECOVERY'}
+  }
+];
+
+const HOURS = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+const COLS = ['d1','dm','d2'];
+
+// data[partidoIdx][col][hour] = {capa, descuento, producto, marca, copy, canales:[]}
+let data = [{},{},{}];
+PARTIDOS.forEach((_,pi)=>{
+  COLS.forEach(col=>{ data[pi][col]={}; HOURS.forEach(h=>{ data[pi][col][h]=null; }); });
+});
+
+let currentPartido = 0;
+let currentSlot = null; // {col, hour}
+let currentCapa = null;
+
+function selectPartido(idx, btn){
+  currentPartido = idx;
+  document.querySelectorAll('.partido-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  closePanel();
+  renderCalendar();
+}
+
+function renderCalendar(){
+  const p = PARTIDOS[currentPartido];
+  // Header
+  const hdr = document.getElementById('cal-header');
+  hdr.innerHTML = `
+    <div class="cal-header-time"></div>
+    <div class="cal-header-day">
+      <div class="day-label">${p.d1.label}</div>
+      <div class="day-date">${p.d1.day.split(' ')[1]} ${p.d1.day.split(' ')[2]}</div>
+      <div class="day-name">${p.d1.day.split(' ')[0]}</div>
+    </div>
+    <div class="cal-header-day match-day">
+      <div class="day-label">${p.dm.label}</div>
+      <div class="day-date">${p.dm.day.split(' ')[1]} ${p.dm.day.split(' ')[2]}</div>
+      <div class="day-name">${p.dm.day.split(' ')[0]} ⚽ ${p.dm.kickoff}:00</div>
+    </div>
+    <div class="cal-header-day">
+      <div class="day-label">${p.d2.label}</div>
+      <div class="day-date">${p.d2.day.split(' ')[1]} ${p.d2.day.split(' ')[2]}</div>
+      <div class="day-name">${p.d2.day.split(' ')[0]}</div>
+    </div>
+  `;
+
+  // Grid
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  HOURS.forEach(h=>{
+    const row = document.createElement('div');
+    row.className = 'cal-row';
+    // time cell
+    const tc = document.createElement('div');
+    tc.className = 'cal-time';
+    tc.textContent = h.toString().padStart(2,'0')+':00';
+    row.appendChild(tc);
+    // day cells
+    COLS.forEach(col=>{
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell';
+      cell.onclick = ()=>openPanel(col,h);
+
+      const slotData = data[currentPartido][col][h];
+      // kickoff marker
+      if(col==='dm' && h===p.dm.kickoff){
+        const km = document.createElement('div');
+        km.className='kickoff-marker';
+        km.innerHTML='⚽ KICKOFF '+p.dm.kickoff+':00';
+        cell.appendChild(km);
+        cell.style.background='rgba(255,68,31,0.06)';
+      }
+
+      if(slotData){
+        cell.classList.add('has-event');
+        const eb = document.createElement('div');
+        eb.className='event-block '+slotData.capa;
+        const capaLabels={cashback:'🪙 D-1 Cashback',morning:'🔥 Morning Rush',bigame:'🎯 Big Game',recovery:'🚀 Recovery'};
+        eb.innerHTML=`
+          <div class="event-capa">${capaLabels[slotData.capa]||''}</div>
+          <div class="event-info">
+            ${slotData.descuento?`<strong>${slotData.descuento}</strong><br>`:''}
+            ${slotData.producto?`${slotData.producto}`:''}
+            ${slotData.marca?` · <em>${slotData.marca}</em>`:''}
+          </div>
+        `;
+        cell.appendChild(eb);
+      } else {
+        const add = document.createElement('div');
+        add.className='event-add';
+        add.textContent='+';
+        cell.appendChild(add);
+      }
+      row.appendChild(cell);
+    });
+    grid.appendChild(row);
+  });
+}
+
+function openPanel(col, hour){
+  currentSlot = {col, hour};
+  const p = PARTIDOS[currentPartido];
+  const dayLabels = {d1:p.d1.day, dm:p.dm.day+' ⚽', d2:p.d2.day};
+  document.getElementById('panel-title').textContent = dayLabels[col]+' · '+hour.toString().padStart(2,'0')+':00';
+  document.getElementById('panel-meta').innerHTML =
+    `<strong>Partido:</strong> ${p.label}<br>
+     <strong>Día:</strong> ${dayLabels[col]}<br>
+     <strong>Hora:</strong> ${hour.toString().padStart(2,'0')}:00 – ${(hour+1).toString().padStart(2,'0')}:00`;
+
+  // Load existing data
+  const slotData = data[currentPartido][col][hour];
+  document.getElementById('f-descuento').value = slotData?.descuento||'';
+  document.getElementById('f-producto').value = slotData?.producto||'';
+  document.getElementById('f-marca').value = slotData?.marca||'';
+  document.getElementById('f-copy').value = slotData?.copy||'';
+
+  // Reset canales
+  document.querySelectorAll('.canal-tag').forEach(t=>t.classList.remove('on'));
+  if(slotData?.canales){
+    slotData.canales.forEach(c=>{
+      const tag = document.querySelector('.canal-tag[data-canal="'+c+'"]');
+      if(tag) tag.classList.add('on');
+    });
+  }
+
+  // Reset capa
+  document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));
+  currentCapa = slotData?.capa||null;
+  if(currentCapa){
+    const opt = document.querySelector('.capa-opt.'+currentCapa);
+    if(opt) opt.classList.add('selected');
+  }
+
+  document.getElementById('cal-panel').classList.add('open');
+}
+
+function closePanel(){
+  document.getElementById('cal-panel').classList.remove('open');
+  currentSlot=null;
+}
+
+function selectCapa(capa, el){
+  document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  currentCapa = capa;
+}
+
+function toggleCanal(el){ el.classList.toggle('on'); }
+
+function saveSlot(){
+  if(!currentSlot) return;
+  const {col,hour} = currentSlot;
+  const canales = [];
+  document.querySelectorAll('.canal-tag.on').forEach(t=>canales.push(t.dataset.canal));
+  data[currentPartido][col][hour] = {
+    capa: currentCapa,
+    descuento: document.getElementById('f-descuento').value.trim(),
+    producto: document.getElementById('f-producto').value.trim(),
+    marca: document.getElementById('f-marca').value.trim(),
+    copy: document.getElementById('f-copy').value.trim(),
+    canales
+  };
+  renderCalendar();
+}
+
+function clearSlot(){
+  if(!currentSlot) return;
+  const {col,hour} = currentSlot;
+  data[currentPartido][col][hour] = null;
+  document.getElementById('f-descuento').value='';
+  document.getElementById('f-producto').value='';
+  document.getElementById('f-marca').value='';
+  document.getElementById('f-copy').value='';
+  document.querySelectorAll('.canal-tag').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.capa-opt').forEach(o=>o.classList.remove('selected'));
+  currentCapa=null;
+  renderCalendar();
+}
+
+function switchTab(name,el){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
   el.classList.add('active');
 }
-function toggleCanal(el) { el.classList.toggle('active-canal'); }
-function filterPartido(id, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => { if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('filterPartido')) b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.querySelectorAll('.partido-block').forEach(b => { b.style.display = (id==='all' || b.dataset.partido===id) ? 'block' : 'none'; });
-}
-function filterCapa(capa, btn) {
-  const wasActive = btn.classList.contains('active');
-  document.querySelectorAll('.filter-btn').forEach(b => { if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('filterCapa')) b.classList.remove('active'); });
-  if(wasActive) { document.querySelectorAll('.capa-col').forEach(c => c.style.display=''); return; }
-  btn.classList.add('active');
-  document.querySelectorAll('.capa-col').forEach(c => { c.style.display = c.dataset.capa===capa ? '' : 'none'; });
-}
-function exportHTML() {
-  const html = '<!DOCTYPE html>' + document.documentElement.outerHTML;
-  const blob = new Blob([html], {type:'text/html'});
+
+function exportHTML(){
+  // Embed data into the HTML before export
+  const script = `<script>window.__DATA__=${JSON.stringify(data)};<\/script>`;
+  let html = document.documentElement.outerHTML;
+  html = html.replace('</body>', script+'</body>');
+  const blob = new Blob(['<!DOCTYPE html>'+html],{type:'text/html'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'rappi_strike_plan_mundial2026.html';
   a.click();
 }
+
+// Load embedded data if present
+if(window.__DATA__){ data = window.__DATA__; }
+
+// Init
+renderCalendar();
 </script>
 </body>
 </html>
