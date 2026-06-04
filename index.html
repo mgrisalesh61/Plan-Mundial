@@ -232,16 +232,21 @@ header{background:var(--bg2);border-bottom:1px solid var(--bd);padding:0 16px;di
 .save-toast.show{opacity:1;}
 </style>
 <script>
-// Force reload if cached version detected
+// Auto-refresh: fetch page headers periodically to detect new version
 (function(){
-  if(window.performance && window.performance.navigation.type === 1) return; // already reloaded
-  var lastMod = document.lastModified;
-  var stored = localStorage.getItem('_page_mod');
-  if(stored && stored !== lastMod){
-    localStorage.setItem('_page_mod', lastMod);
-    location.reload(true);
+  var CHECK_INTERVAL = 60000; // check every 60 seconds
+  var currentMod = document.lastModified;
+  function checkUpdate(){
+    fetch(location.href.split('?')[0] + '?_cb=' + Date.now(), {method:'HEAD', cache:'no-store'})
+    .then(function(r){ return r.headers.get('last-modified'); })
+    .then(function(mod){ if(mod && mod !== currentMod) location.reload(true); })
+    .catch(function(){});
   }
-  localStorage.setItem('_page_mod', lastMod);
+  setInterval(checkUpdate, CHECK_INTERVAL);
+  // Also check when tab becomes visible (mobile users switching apps)
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden) checkUpdate();
+  });
 })();
 </script>
 </head>
