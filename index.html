@@ -191,6 +191,8 @@ body.ro .cc{cursor:default!important;pointer-events:none;}
 body.ro .ecb{display:none;}
 body.ro .add-match-btn{display:none!important;}
 body.ro .mc-actions{display:none!important;}
+body.ro .eb-del{display:none!important;}
+body.ro .add-ev{display:none!important;}
 
 /* REGLAS */
 .dli{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
@@ -224,6 +226,18 @@ body.ro .mc-actions{display:none!important;}
   .dlt th:nth-child(4),.dlt td:nth-child(4){display:none;}
 }
 @media(max-width:480px){.ws{flex-direction:column;}.wbtn{min-width:unset;}}
+
+/* MULTI-EVENT */
+.cc-stack{display:flex;flex-direction:column;gap:2px;height:100%;}
+.eb-mini{border-radius:3px;padding:3px 5px;position:relative;border:1px solid transparent;cursor:pointer;}
+.eb-mini.cashback{background:var(--yw-d);border-color:rgba(255,184,0,0.25);}
+.eb-mini.morning{background:var(--or-d);border-color:rgba(255,68,31,0.25);}
+.eb-mini.bigame{background:var(--pr-d);border-color:rgba(155,109,255,0.25);}
+.eb-mini.recovery{background:var(--bl-d);border-color:rgba(77,166,255,0.25);}
+.eb-mini .ec{font-size:7px;}.eb-mini .ei{font-size:7px;}.eb-mini .ecnt{font-size:6px;padding:0 2px;}
+.eb-mini .ecb{font-size:6px;padding:1px 3px;}
+.eb-del{position:absolute;top:1px;right:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:var(--tm);font-size:6px;padding:1px 3px;border-radius:2px;cursor:pointer;opacity:0;font-family:var(--fb);font-weight:700;z-index:10;}.eb-mini:hover .eb-del{opacity:1;}.eb-del:hover{background:rgba(255,68,31,.3);border-color:var(--or);color:var(--or);}
+.add-ev{display:flex;align-items:center;justify-content:center;color:var(--td);font-size:11px;cursor:pointer;padding:2px 0;border-radius:3px;opacity:0;transition:opacity .15s;}.cc:hover .add-ev{opacity:1;}.add-ev:hover{background:rgba(255,255,255,.04);color:var(--tm);}
 </style>
 </head>
 <body class="ro">
@@ -309,6 +323,7 @@ body.ro .mc-actions{display:none!important;}
     <div class="fb"><div class="fl2">Equipo 2</div><input class="fi" id="mm-t2" type="text" placeholder="ej. Sudáfrica"></div>
     <div class="fb"><div class="fl2">Fecha (YYYY-MM-DD)</div><input class="fi" id="mm-date" type="date"></div>
     <div class="fb"><div class="fl2">Hora CDMX (HH:MM)</div><input class="fi" id="mm-time" type="time"></div>
+    <div class="fb"><div class="fl2">Ciudad / Estadio</div><input class="fi" id="mm-city" type="text" placeholder="ej. Estadio Azteca · CDMX"></div>
     <div class="fb"><div class="fl2">Tier</div>
       <div class="mm-tier">
         <div class="mm-t t1" id="mmt1" onclick="selTier('t1')">🟠 TIER 1<br><span style="font-size:9px;font-weight:400;">Partidos MX</span></div>
@@ -397,13 +412,13 @@ const CN={push:'Push',sms:'SMS',whatsapp:'WA',email:'Email',slideup:'Slide Up',s
 // ═══ STATE ═══
 // matches: [{id,team1,team2,date:'2026-06-11',time:'15:00',tier:'t1'|'t2'}]
 let matches=[
-  {id:'m0',team1:'México',team2:'Sudáfrica',date:'2026-06-11',time:'15:00',tier:'t1'},
-  {id:'m1',team1:'México',team2:'Corea del Sur',date:'2026-06-18',time:'19:00',tier:'t1'},
-  {id:'m2',team1:'Chequia',team2:'México',date:'2026-06-24',time:'21:00',tier:'t1'},
+  {id:'m0',team1:'México',team2:'Sudáfrica',date:'2026-06-11',time:'15:00',tier:'t1',city:'Estadio Azteca · CDMX'},
+  {id:'m1',team1:'México',team2:'Corea del Sur',date:'2026-06-18',time:'19:00',tier:'t1',city:'Estadio Akron · GDL'},
+  {id:'m2',team1:'Chequia',team2:'México',date:'2026-06-24',time:'21:00',tier:'t1',city:'Estadio Azteca · CDMX'},
 ];
 // comms: {weekId:{col:{hour:{capa,descuento,producto,marca,copy,canales:[]}}}}
 let comms={};
-WEEKS.forEach(w=>{comms[w.id]={};w.days.forEach(d=>{comms[w.id][d.col]={};HOURS.forEach(h=>{comms[w.id][d.col][h]=null;});});});
+WEEKS.forEach(w=>{comms[w.id]={};w.days.forEach(d=>{comms[w.id][d.col]={};HOURS.forEach(h=>{comms[w.id][d.col][h]=[];});});});
 
 let curWeek=0,curSlot=null,curCapa=null,copyBuf=null,copyOn=false,curView='franjas';
 let franjaOpen={};
@@ -432,12 +447,14 @@ function openMatchModal(mid){
     document.getElementById('mm-t2').value=m.team2;
     document.getElementById('mm-date').value=m.date;
     document.getElementById('mm-time').value=m.time;
+    document.getElementById('mm-city').value=m.city||'';
     mmTier=m.tier;
   } else {
     document.getElementById('mm-t1').value='';
     document.getElementById('mm-t2').value='';
     document.getElementById('mm-date').value='';
     document.getElementById('mm-time').value='';
+    document.getElementById('mm-city').value='';
     mmTier='t1';
   }
   document.querySelectorAll('.mm-t').forEach(t=>t.classList.remove('sel'));
@@ -451,12 +468,13 @@ function saveMatch(){
   const t2=document.getElementById('mm-t2').value.trim();
   const dt=document.getElementById('mm-date').value;
   const tm=document.getElementById('mm-time').value;
+  const ct=document.getElementById('mm-city').value.trim();
   if(!t1||!t2||!dt)return;
   if(editMatchId){
     const m=matches.find(x=>x.id===editMatchId);
-    if(m){m.team1=t1;m.team2=t2;m.date=dt;m.time=tm;m.tier=mmTier;}
+    if(m){m.team1=t1;m.team2=t2;m.date=dt;m.time=tm;m.tier=mmTier;m.city=ct;}
   } else {
-    matches.push({id:'m'+Date.now(),team1:t1,team2:t2,date:dt,time:tm,tier:mmTier});
+    matches.push({id:'m'+Date.now(),team1:t1,team2:t2,date:dt,time:tm,tier:mmTier,city:ct});
   }
   closeMatchModal();render();
 }
@@ -502,13 +520,13 @@ function renderCards(){
   t1s.forEach(m=>{
     const d=document.createElement('div');
     d.className='mcard t1';
-    d.innerHTML=`<div class="mc-tier">TIER 1 · PARTIDO MX</div><div class="mc-teams">${m.team1} vs ${m.team2}</div><div class="mc-info">${formatMatchDate(m)}</div><div class="mc-actions"><button class="mc-btn" onclick="openMatchModal('${m.id}')">✏️ Editar</button><button class="mc-btn del" onclick="delMatch('${m.id}')">🗑 Eliminar</button></div>`;
+    d.innerHTML=`<div class="mc-tier">TIER 1 · PARTIDO MX</div><div class="mc-teams">${m.team1} vs ${m.team2}</div><div class="mc-info">${formatMatchDate(m)}${m.city?' · '+m.city:''}</div><div class="mc-actions"><button class="mc-btn" onclick="openMatchModal('${m.id}')">✏️ Editar</button><button class="mc-btn del" onclick="delMatch('${m.id}')">🗑 Eliminar</button></div>`;
     el.appendChild(d);
   });
   t2s.forEach(m=>{
     const d=document.createElement('div');
     d.className='mcard t2';
-    d.innerHTML=`<div class="mc-tier">TIER 2 · ALTO PERFIL</div><div class="mc-teams">${m.team1} vs ${m.team2}</div><div class="mc-info">${formatMatchDate(m)}</div><div class="mc-actions"><button class="mc-btn" onclick="openMatchModal('${m.id}')">✏️ Editar</button><button class="mc-btn del" onclick="delMatch('${m.id}')">🗑 Eliminar</button></div>`;
+    d.innerHTML=`<div class="mc-tier">TIER 2 · ALTO PERFIL</div><div class="mc-teams">${m.team1} vs ${m.team2}</div><div class="mc-info">${formatMatchDate(m)}${m.city?' · '+m.city:''}</div><div class="mc-actions"><button class="mc-btn" onclick="openMatchModal('${m.id}')">✏️ Editar</button><button class="mc-btn del" onclick="delMatch('${m.id}')">🗑 Eliminar</button></div>`;
     el.appendChild(d);
   });
   if(editMode){
@@ -582,7 +600,7 @@ function renderFranjas(){
     sumRow.appendChild(tc);
     w.days.forEach(d=>{
       const dc=document.createElement('div');dc.className='fdc';dc.style.borderLeft='1px solid var(--bd)';
-      const slots=franja.hours.map(h=>comms[w.id][d.col][h]).filter(Boolean);
+      const slots=franja.hours.flatMap(h=>(comms[w.id]?.[d.col]?.[h]||[]));
       if(!slots.length){dc.innerHTML='<div class="fem">—</div>';}
       else{
         const canales=[...new Set(slots.flatMap(s=>s.canales||[]))];
@@ -613,33 +631,50 @@ function toggleFranja(id){franjaOpen[id]=!franjaOpen[id];renderFranjas();}
 
 function makeCell(wid,col,h,dayObj){
   const cell=document.createElement('div');cell.className='cc';
-  cell.onclick=()=>openPanel(wid,col,h,dayObj);
   if(copyOn){
     if(copyBuf&&copyBuf.wid===wid&&copyBuf.col===col&&copyBuf.h===h)cell.classList.add('cps');
     else cell.classList.add('cpt');
   }
-  const sd=comms[wid]?.[col]?.[h];
-  // kickoff
+  cell.onclick=(e)=>{
+    if(e.target.closest('.eb-mini')||e.target.closest('.add-ev')||e.target.closest('.ecb')||e.target.closest('.eb-del'))return;
+    if(!editMode)return;
+    if(copyOn&&copyBuf){pasteSlot(wid,col,h);return;}
+    const arr=comms[wid]?.[col]?.[h]||[];
+    if(!arr.length)openPanel(wid,col,h,dayObj,-1);
+  };
+  const arr=comms[wid]?.[col]?.[h]||[];
+  // kickoff markers
   const dm=getMatchesForDay(dayObj.full);
   dm.forEach(m=>{
     if(m.time){
       const mh=parseInt(m.time.split(':')[0]);
       if(mh===h){
         const ko=document.createElement('div');ko.className='ko';
-        ko.innerHTML=`⚽ ${m.time} ${m.team1.substring(0,3).toUpperCase()}`;
+        ko.innerHTML=`⚽ ${m.time} ${m.team1.substring(0,3).toUpperCase()}${m.city?' · '+m.city.split('·')[0].trim():''}`;
         cell.appendChild(ko);
         if(m.tier==='t1')cell.style.background='rgba(255,68,31,0.05)';
         else cell.style.background='rgba(155,109,255,0.05)';
       }
     }
   });
-  if(sd){
-    cell.classList.add('has-event');
-    const eb=document.createElement('div');eb.className='eb '+sd.capa;eb.style.position='relative';
-    const chtml=(sd.canales&&sd.canales.length)?`<div class="ecn">${sd.canales.map(c=>`<span class="ecnt">${CI[c]||''} ${CN[c]||c}</span>`).join('')}</div>`:'';
-    eb.innerHTML=`<div class="ec">${CL[sd.capa]||''}</div><div class="ei">${sd.descuento?`<strong>${sd.descuento}</strong><br>`:''}${sd.producto||''}${sd.marca?` · <em>${sd.marca}</em>`:''}</div>${chtml}`;
-    const cp=document.createElement('button');cp.className='ecb';cp.textContent='📋';cp.onclick=e=>copySlot(wid,col,h,e);
-    eb.appendChild(cp);cell.appendChild(eb);
+  if(arr.length){
+    const stack=document.createElement('div');stack.className='cc-stack';
+    arr.forEach((sd,idx)=>{
+      const eb=document.createElement('div');eb.className='eb-mini '+sd.capa;eb.style.position='relative';
+      const chtml=(sd.canales&&sd.canales.length)?`<div class="ecn">${sd.canales.map(c=>`<span class="ecnt">${CI[c]||''} ${CN[c]||c}</span>`).join('')}</div>`:'';
+      eb.innerHTML=`<div class="ec">${CL[sd.capa]||''}</div><div class="ei">${sd.descuento?`<strong>${sd.descuento}</strong><br>`:''}${sd.producto||''}${sd.marca?` · <em>${sd.marca}</em>`:''}</div>${chtml}`;
+      const cp=document.createElement('button');cp.className='ecb';cp.textContent='📋';cp.onclick=e=>copySlotIdx(wid,col,h,idx,e);
+      eb.appendChild(cp);
+      const dl=document.createElement('button');dl.className='eb-del';dl.textContent='🗑';dl.onclick=e=>{e.stopPropagation();if(!editMode)return;arr.splice(idx,1);render();};
+      eb.appendChild(dl);
+      eb.onclick=(e)=>{if(e.target.closest('.ecb')||e.target.closest('.eb-del'))return;if(!editMode)return;openPanel(wid,col,h,dayObj,idx);};
+      stack.appendChild(eb);
+    });
+    // add more button
+    const addBtn=document.createElement('div');addBtn.className='add-ev';addBtn.textContent='+ agregar';
+    addBtn.onclick=()=>{if(!editMode)return;openPanel(wid,col,h,dayObj,-1);};
+    stack.appendChild(addBtn);
+    cell.appendChild(stack);
   } else {
     const ea=document.createElement('div');ea.className='ea';ea.textContent='+';cell.appendChild(ea);
   }
@@ -647,23 +682,25 @@ function makeCell(wid,col,h,dayObj){
 }
 
 // ═══ PANEL ═══
-function openPanel(wid,col,hour,dayObj){
+function openPanel(wid,col,hour,dayObj,evIdx){
   if(!editMode)return;
   if(copyOn&&copyBuf){pasteSlot(wid,col,hour);return;}
-  curSlot={wid,col,hour};
+  curSlot={wid,col,hour,evIdx};
   const d=dayObj||{};
   const dm=getMatchesForDay(d.full||'');
   const lbl=d.day+' '+d.date;
-  document.getElementById('ptitle').textContent=lbl+' · '+hour.toString().padStart(2,'0')+':00';
+  const isNew=evIdx===-1;
+  document.getElementById('ptitle').textContent=(isNew?'➕ Nueva comm · ':'✏️ Editar · ')+lbl+' · '+hour.toString().padStart(2,'0')+':00';
   let minfo='';dm.forEach(m=>{minfo+=`<br>⚽ ${m.team1} vs ${m.team2} ${m.time||''} (${m.tier.toUpperCase()})`;});
   document.getElementById('pmeta').innerHTML=`<strong>Semana:</strong> ${WEEKS[curWeek].label}<br><strong>Día:</strong> ${lbl}<br><strong>Hora:</strong> ${hour.toString().padStart(2,'0')}:00–${(hour+1).toString().padStart(2,'0')}:00${minfo}`;
-  const sd=comms[wid]?.[col]?.[hour];
+  const arr=comms[wid]?.[col]?.[hour]||[];
+  const sd=isNew?null:arr[evIdx];
   document.getElementById('fd').value=sd?.descuento||'';
   document.getElementById('fp').value=sd?.producto||'';
   document.getElementById('fm2').value=sd?.marca||'';
   document.getElementById('fc').value=sd?.copy||'';
   document.querySelectorAll('.ctg').forEach(t=>t.classList.remove('on'));
-  if(sd?.canales)sd.canales.forEach(c=>{const t=document.querySelector(`.ctg[data-c="${c}"]`);if(t)t.classList.add('on');});
+  if(sd?.canales)sd.canales.forEach(c2=>{const t=document.querySelector('.ctg[data-c="'+c2+'"]');if(t)t.classList.add('on');});
   document.querySelectorAll('.co').forEach(o=>o.classList.remove('sel'));
   curCapa=sd?.capa||null;
   if(curCapa){const o=document.querySelector('.co.'+curCapa);if(o)o.classList.add('sel');}
@@ -673,24 +710,29 @@ function closePanel(){document.getElementById('cpanel').classList.remove('open')
 function selCapa(c,el){document.querySelectorAll('.co').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');curCapa=c;}
 function togC(el){el.classList.toggle('on');}
 function saveSlot(){
-  if(!curSlot)return;const{wid,col,hour}=curSlot;
+  if(!curSlot)return;const{wid,col,hour,evIdx}=curSlot;
   const canales=[];document.querySelectorAll('.ctg.on').forEach(t=>canales.push(t.dataset.c));
-  if(!comms[wid])comms[wid]={};if(!comms[wid][col])comms[wid][col]={};
-  comms[wid][col][hour]={capa:curCapa,descuento:document.getElementById('fd').value.trim(),producto:document.getElementById('fp').value.trim(),marca:document.getElementById('fm2').value.trim(),copy:document.getElementById('fc').value.trim(),canales};
+  if(!comms[wid])comms[wid]={};if(!comms[wid][col])comms[wid][col]={};if(!comms[wid][col][hour])comms[wid][col][hour]=[];
+  const ev={capa:curCapa,descuento:document.getElementById('fd').value.trim(),producto:document.getElementById('fp').value.trim(),marca:document.getElementById('fm2').value.trim(),copy:document.getElementById('fc').value.trim(),canales};
+  if(evIdx===-1){comms[wid][col][hour].push(ev);}
+  else{comms[wid][col][hour][evIdx]=ev;}
   render();
 }
 function clearSlot(){
-  if(!curSlot)return;const{wid,col,hour}=curSlot;
-  if(comms[wid]?.[col])comms[wid][col][hour]=null;
+  if(!curSlot)return;const{wid,col,hour,evIdx}=curSlot;
+  if(comms[wid]?.[col]?.[hour]){
+    if(evIdx>=0)comms[wid][col][hour].splice(evIdx,1);
+    else comms[wid][col][hour]=[];
+  }
   ['fd','fp','fm2','fc'].forEach(id=>document.getElementById(id).value='');
   document.querySelectorAll('.ctg').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.co').forEach(o=>o.classList.remove('sel'));
-  curCapa=null;render();
+  curCapa=null;closePanel();render();
 }
 
 // ═══ COPY/PASTE ═══
-function copySlot(wid,col,h,e){
-  e.stopPropagation();const sd=comms[wid]?.[col]?.[h];if(!sd)return;
+function copySlotIdx(wid,col,h,idx,e){
+  e.stopPropagation();const arr=comms[wid]?.[col]?.[h]||[];const sd=arr[idx];if(!sd)return;
   copyBuf={data:JSON.parse(JSON.stringify(sd)),wid,col,h};copyOn=true;
   const parts=[CL[sd.capa]||'',sd.descuento||'',sd.producto||'',sd.marca||''].filter(Boolean);
   document.getElementById('clbl').textContent=parts.join(' · ');
@@ -698,8 +740,8 @@ function copySlot(wid,col,h,e){
 }
 function pasteSlot(wid,col,h){
   if(!copyBuf)return;
-  if(!comms[wid])comms[wid]={};if(!comms[wid][col])comms[wid][col]={};
-  comms[wid][col][h]=JSON.parse(JSON.stringify(copyBuf.data));render();
+  if(!comms[wid])comms[wid]={};if(!comms[wid][col])comms[wid][col]={};if(!comms[wid][col][h])comms[wid][col][h]=[];
+  comms[wid][col][h].push(JSON.parse(JSON.stringify(copyBuf.data)));render();
 }
 function cancelCopy(){copyOn=false;copyBuf=null;document.getElementById('cbanner').classList.remove('on');render();}
 
@@ -758,13 +800,15 @@ if(window.__STATE__){
   const s=window.__STATE__;
   if(s.matches)matches=s.matches;
   if(s.comms){
-    // merge comms
     Object.keys(s.comms).forEach(wid=>{
       if(!comms[wid])comms[wid]={};
       Object.keys(s.comms[wid]).forEach(col=>{
         if(!comms[wid][col])comms[wid][col]={};
         Object.keys(s.comms[wid][col]).forEach(h=>{
-          comms[wid][col][parseInt(h)]=s.comms[wid][col][h];
+          let val=s.comms[wid][col][h];
+          // migrate old format (object) to array
+          if(val&&!Array.isArray(val))val=[val];
+          comms[wid][col][parseInt(h)]=val||[];
         });
       });
     });
