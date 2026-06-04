@@ -222,7 +222,7 @@ header{background:var(--bg2);border-bottom:1px solid var(--bd);padding:0 16px;di
 .add-ev{display:flex;align-items:center;justify-content:center;color:var(--td);font-size:11px;cursor:pointer;padding:2px 0;border-radius:3px;opacity:0;transition:opacity .15s;}.cc:hover .add-ev{opacity:1;}.add-ev:hover{background:rgba(255,255,255,.04);color:var(--tm);}
 </style>
 </head>
-<body class="">
+<body>
 <header>
   <div class="hl"><div class="logo">RAPPI <span>TURBO</span></div><div class="hbadge">⚽ MUNDIAL 2026</div></div>
   <div class="hr"><div class="mbadge ed" id="mbadge">✏️ Editando</div><button class="xbtn" id="xbtn" style="display: block;" onclick="exportHTML()">⬇ Exportar</button></div>
@@ -425,7 +425,6 @@ let mmTier='t1';
 
 // ═══ LOCK ═══
 
-function checkPwd(){const v=document.getElementById('lk-in').value;if(v===PWD){closeLock();setEdit();render();}else{document.getElementById('lk-e').textContent='Clave incorrecta.';document.getElementById('lk-in').classList.add('err');document.getElementById('lk-in').value='';setTimeout(()=>document.getElementById('lk-in').classList.remove('err'),400);}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMatchModal();});
 
 // ═══ MATCH MANAGEMENT ═══
