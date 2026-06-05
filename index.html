@@ -417,7 +417,7 @@ function parseComunicaciones(text){
     const canalesRaw=(r.canales||'').trim();
     const canales=canalesRaw?canalesRaw.split(',').map(c=>c.trim().toLowerCase()).filter(Boolean):[];
     const ev={
-      capa:(r.capa||'').trim().toLowerCase()||'prematch',
+      capa:(r.capa||'').trim().toLowerCase(),
       descuento:(r.descuento||'').trim(),
       producto:(r.producto||'').trim(),
       marca:(r.marca||'').trim(),
@@ -540,7 +540,7 @@ function renderFranjas(){
         const descs=[...new Set(slots.map(s=>s.descuento).filter(Boolean))];
         const capas=[...new Set(slots.map(s=>s.capa).filter(Boolean))];
         let html='<div class="fs">';
-        if(descs.length)html+=`<div class="fds">${capas.map(c=>`<span class="fcd ${c}"></span>`).join('')}${descs.join(' / ')}</div>`;
+        if(descs.length)html+=`<div class="fds">${capas.filter(c=>CL[c]).map(c=>`<span class="fcd ${c}"></span>`).join('')}${descs.join(' / ')}</div>`;
         if(canales.length)html+=`<div class="fcn">${canales.map(c=>`<span class="fcc">${CI[c]||''} ${CN[c]||c}</span>`).join('')}</div>`;
         html+='</div>';dc.innerHTML=html;
       }
@@ -582,7 +582,7 @@ function makeCell(wid,col,h,dayObj){
     arr.forEach(sd=>{
       const eb=document.createElement('div');eb.className='eb-mini '+sd.capa;
       const chtml=(sd.canales&&sd.canales.length)?`<div class="ecn">${sd.canales.map(c=>`<span class="ecnt">${CI[c]||''} ${CN[c]||c}</span>`).join('')}</div>`:'';
-      eb.innerHTML=`<div class="ec">${CL[sd.capa]||sd.capa||''}</div><div class="ei">${sd.descuento?`<strong>${sd.descuento}</strong><br>`:''}${sd.producto||''}${sd.marca?` · <em>${sd.marca}</em>`:''}</div>${chtml}`;
+      eb.innerHTML=`<div class="ec">${sd.capa?(CL[sd.capa]||sd.capa.toUpperCase()):''}</div><div class="ei">${sd.descuento?`<strong>${sd.descuento}</strong><br>`:''}${sd.producto||''}${sd.marca?` · <em>${sd.marca}</em>`:''}</div>${chtml}`;
       stack.appendChild(eb);
     });
     cell.appendChild(stack);
